@@ -3,4 +3,9 @@
 # LogCode: https://osp4diss.vlsm.org/ETC/logCodes.txt
 # ---------------------------------------------------
 
+# Week 0: 
+ZCZC W00 90 L02 CLASSROOM
+ZCZC W00 10 L01 Check discord and scele for news
+ZCZC W00 10 L04 Create github pages
+ZCZC W00 10 L10 Assignment #0
 ZCZC W00 90 L02 CLASSROOM
