@@ -4,13 +4,30 @@
 # ---------------------------------------------------
 
 # Week 0: 275 minutes
-ZCZC W00 100 L02 CLASSROOM
+ZCZC W00 100 L02 CLASSROOM tuesday
 ZCZC W00 10 L01 Check discord and scele for news
-ZCZC W00 10 L04 Create github pages
-ZCZC W00 10 L10 Assignment #0
-ZCZC W00 100 L02 CLASSROOM
+ZCZC W00 20 L09 Doing assignment week 0
+
+ZCZC W00 100 L02 CLASSROOM thursday
 ZCZC W00 5 L41 Filling in TXT/mylog.txt
 ZCZC W00 10 L05 Setting up SEB, doing dummy quiz
 
 ZCZC W00 25 L05 Prepare and do Week 0 quiz
 ZCZC W00 5 L41 Filling in TXT/mylog.txt again
+
+
+# Week 1: x-x minutes
+
+ZCZC W01 100 L02 CLASSROOM tuesday
+ZCZC W01 30 L11 Assignment 1, completed "Choosing your Hypervisor"
+ZCZC W01 15 L11 Assignment 1, completed "Running a Debian Guest"
+
+ZCZC W01 100 L02 CLASSROOM thursday
+ZCZC W01 30 L11 Assignment 1, completed "Dress Up Your Virtual Guest
+ZCZC W01 10 L11 Assignment 1, completed "PULL from / PUSH to GitHub.com"
+# Assignments 3 & 4 
+
+ZCZC W01 165 L05 Doing previous years' quiz (which is in assignment #2)
+ZCZC W01 25 L05 Week 01 quiz time
+
+ZCZC W01 10 L41 Total time writing TXT/mylog.txt over the week
