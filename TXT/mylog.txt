@@ -3,7 +3,7 @@
 # LogCode: https://osp4diss.vlsm.org/ETC/logCodes.txt
 # ---------------------------------------------------
 
-# Week 0: 275/600 minutes
+# Week 0: 275 minutes
 ZCZC W00 100 L02 CLASSROOM tuesday
 ZCZC W00 10 L01 Check discord and scele for news
 ZCZC W00 20 L09 Doing assignment week 0
@@ -16,7 +16,7 @@ ZCZC W00 25 L05 Prepare and do Week 0 quiz
 ZCZC W00 5 L41 Filling in TXT/mylog.txt again
 
 
-# Week 1: 505/600 minutes
+# Week 1: 505 minutes
 ZCZC W01 100 L02 CLASSROOM tuesday
 ZCZC W01 30 L11 Assignment 1, completed "Choosing your Hypervisor"
 ZCZC W01 15 L11 Assignment 1, completed "Running a Debian Guest"
@@ -25,9 +25,29 @@ ZCZC W01 100 L02 CLASSROOM thursday
 ZCZC W01 30 L11 Assignment 1, completed "Dress Up Your Virtual Guest
 ZCZC W01 10 L11 Assignment 1, completed "PULL from / PUSH to GitHub.com"
 
-ZCZC W01 165 L05 Doing previous years' quiz (which is in assignment #2)
+ZCZC W01 165 L05 Doing previous years' quiz
 ZCZC W01 25 L05 Week 01 quiz time
 
 ZCZC W01 10 L11 Assignments 3 and 4
 
 ZCZC W01 20 L41 Total time writing TXT/mylog.txt over the week
+
+
+# Week 2: 480 minutes
+ZCZC W02 10 L01 Check discord and scele for news
+ZCZC W02 10 L12 Assignment 2 completed
+ZCZC W02 30 L12 Assignment 5 completed
+
+ZCZC W02 100 L02 CLASSROOM tuesday
+
+ZCZC W02 100 L02 CLASSROOM thursday
+ZCZC W02 30 L07 Running Week02 demos files
+ZCZC W02 10 L24 Doing Pop Quiz 2-2
+
+ZCZC W02 130 L05 Doing previous years quiz
+
+ZCZC W02 25 L05 Week 01 quiz time
+
+ZCZC W02 10 L03 
+
+ZCZC W02 25 L41 Total time writing TXT/mylog.txt over the week
