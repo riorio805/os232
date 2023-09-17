@@ -33,7 +33,7 @@ ZCZC W01 10 L11 Assignments 3 and 4
 ZCZC W01 20 L41 Total time writing TXT/mylog.txt over the week
 
 
-# Week 2: 480 minutes
+# Week 2: 490 minutes
 ZCZC W02 10 L01 Check discord and scele for news
 ZCZC W02 10 L12 Assignment 2 completed
 ZCZC W02 30 L12 Assignment 5 completed
@@ -48,6 +48,6 @@ ZCZC W02 130 L05 Doing previous years quiz
 
 ZCZC W02 25 L05 Week 01 quiz time
 
-ZCZC W02 10 L03 
+ZCZC W02 20 L03 Github stuff
 
 ZCZC W02 25 L41 Total time writing TXT/mylog.txt over the week
