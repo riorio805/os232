@@ -46,19 +46,20 @@ ZCZC W02 10 L24 Doing Pop Quiz 2-2
 
 ZCZC W02 130 L05 Doing previous years quiz
 
-ZCZC W02 25 L05 Week 01 quiz time
+ZCZC W02 25 L05 Week 02 quiz time
 
 ZCZC W02 20 L03 Github stuff
 
 ZCZC W02 25 L41 Total time writing TXT/mylog.txt over the week
 
 
-# Week 3: 150(250) minutes
-ZCZC W02 10 L01 Check discord and scele for news
-ZCZC W02 100 L02 CLASSROOM tuesday
-ZCZC W02 30 L07 Running Week02 demo files
+# Week 3: 280 minutes
+ZCZC W03 10 L01 Check discord and scele for news
+ZCZC W03 100 L02 CLASSROOM tuesday
+ZCZC W03 30 L07 Running Week02 demo files
 
-# ZCZC W02 100 L02 CLASSROOM thursday
+ZCZC W03 100 L02 CLASSROOM thursday
 
+ZCZC W03 25 Lo5 Week 03 quiz time
 
-ZCZC W02 10 L41 Total time writing TXT/mylog.txt over the week
+ZCZC W03 15 L41 Total time writing TXT/mylog.txt over the week
