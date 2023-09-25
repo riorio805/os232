@@ -60,6 +60,13 @@ ZCZC W03 30 L07 Running Week02 demo files
 
 ZCZC W03 100 L02 CLASSROOM thursday
 
-ZCZC W03 25 Lo5 Week 03 quiz time
+ZCZC W03 25 L05 Week 03 quiz time
 
 ZCZC W03 15 L41 Total time writing TXT/mylog.txt over the week
+
+
+# Week 4: 0(200) minutes
+
+# ZCZC W03 100 L02 CLASSROOM tuesday
+
+# ZCZC W03 100 L02 CLASSROOM thursday
