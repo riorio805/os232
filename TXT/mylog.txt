@@ -65,8 +65,10 @@ ZCZC W03 25 L05 Week 03 quiz time
 ZCZC W03 15 L41 Total time writing TXT/mylog.txt over the week
 
 
-# Week 4: 0(200) minutes
+# Week 4: 300 minutes
+ZCZC W04 100 L02 CLASSROOM tuesday
+ZCZC W04 100 L02 CLASSROOM 3/10/2023
+ZCZC W04 30 L09 Assignments
+ZCZC W04 60 L06 Study
 
-# ZCZC W03 100 L02 CLASSROOM tuesday
-
-# ZCZC W03 100 L02 CLASSROOM thursday
+ZCZC W04 10 L41 Total time writing TXT/mylog.txt
