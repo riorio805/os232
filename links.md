@@ -8,11 +8,21 @@ OS related:<br>
 
 where I do my work on this class.
 
+2. [Vi cheatsheet](https://www.atmos.albany.edu/daes/atmclasses/atm350/vi_cheat_sheet.pdf)
+
+Vi commands. :thumbs:
+
+
+3. [Bash cheatsheet](https://devhints.io/bash#conditionals)
+
+Contains most of the syntax in bash, which is good enough.
+
+
 
 ---
 Git related:<br>
 
-2. [Stackoverflow: How do I clone a subdirectory only of a Git repository?](https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository/)
+4. [Stackoverflow: How do I clone a subdirectory only of a Git repository?](https://stackoverflow.com/questions/600079/how-do-i-clone-a-subdirectory-only-of-a-git-repository/)
 
 Example: you want to clone only the TXT folder from https://github.com/cbkadal/os232/
 ```

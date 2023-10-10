@@ -56,7 +56,7 @@ ZCZC W02 25 L41 Total time writing TXT/mylog.txt over the week
 # Week 3: 280 minutes
 ZCZC W03 10 L01 Check discord and scele for news
 ZCZC W03 100 L02 CLASSROOM tuesday
-ZCZC W03 30 L07 Running Week02 demo files
+ZCZC W03 30 L07 Running Week03 demo files
 
 ZCZC W03 100 L02 CLASSROOM thursday
 
@@ -67,8 +67,20 @@ ZCZC W03 15 L41 Total time writing TXT/mylog.txt over the week
 
 # Week 4: 300 minutes
 ZCZC W04 100 L02 CLASSROOM tuesday
-ZCZC W04 100 L02 CLASSROOM 3/10/2023
+ZCZC W04 100 L02 CLASSROOM next tuesday
 ZCZC W04 30 L09 Assignments
 ZCZC W04 60 L06 Study
 
 ZCZC W04 10 L41 Total time writing TXT/mylog.txt
+
+
+# Week 5: 355 minutes
+ZCZC W05 100 L02 CLASSROOM thursday
+ZCZC W05 100 L02 CLASSROOM tuesday
+
+ZCZC W05 45 L09 Assignments
+ZCZC W05 20 L24 Doing Week05 pop quizzes
+ZCZC W05 30 L07 Running Week05 demo files
+ZCZC W05 45 L06 Study
+
+ZCZC W04 15 L41 Total time writing TXT/mylog.txt
