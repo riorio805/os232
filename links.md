@@ -6,7 +6,8 @@ permalink: LINKS/
 OS related:<br>
 1. [My personal notes](https://riorio805.github.com/NOTES)
 
-where I do my work on this class.
+work here sometimes.
+
 
 2. [Vi cheatsheet](https://www.atmos.albany.edu/daes/atmclasses/atm350/vi_cheat_sheet.pdf)
 
