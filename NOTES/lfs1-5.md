@@ -2,21 +2,35 @@
 hopefully this works lol good luck
 
 ## CHAPTER 2: Preparing the Host System
+#### Run as `user` and `root`
 
-#### Run on `user` and `root`
 Set `$LFS` variable
 ```bash
 export LFS=/mnt/lfs
 ```
 
+Check `$LFS` variable
+```bash
+echo "===== ======="
+echo "Check $LFS..."
+if   [ -z $LFS  ] ; then 
+  echo ERROR: There is no LFS variable  === ERROR ===
+elif [ -d $LFS/ ] ; then
+  echo === === === === === === ===  LFS is $LFS/ === OK ===
+else
+  echo ERROR: There is no LFS directory === ERROR ===
+fi
+```
+
 ## CHAPTER 3: Packages and Patches
+#### Run as `root`
 
 Set parallel make using 4 cores
 ```bash
 export MAKEFLAGS='-j4'
 ```
 
-Package download (from aos)
+Package download ([from aos](https://osp4diss.vlsm.org/W08-03.html))
 ```bash
 if [[ "$(id -u)" == "0" ]] ; then
     echo "============================================"
@@ -49,6 +63,7 @@ ls -al $LFS/sources/{md5sums,wget-list-sysv}
 ## CHAPTER 4: Final Preparations
 #### Run as `root`
 
+Create the required directory layout
 ```bash
 mkdir -pv $LFS/{etc,var} $LFS/usr/{bin,lib,sbin}
 

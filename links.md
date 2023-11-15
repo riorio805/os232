@@ -4,7 +4,7 @@ permalink: LINKS/
 
 # links
 OS related:<br>
-1. [My personal notes](https://riorio805.github.com/NOTES)
+1. [My personal notes](https://riorio805.github.io/os232/NOTES)
 
 work here sometimes.
 
