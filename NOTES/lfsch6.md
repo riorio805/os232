@@ -1,28 +1,40 @@
 #### Preface:
 again, hopefully this works lol good luck\
-chapter 7 is in it's own page [here](./lfsch7.md)
-
-tample
-```bash
-cd /mnt/lfs/sources/
-
-tar xf PACKAGE-*.tar.xz
-cd PACKAGE-*/
-
-# Installation here
-
-cd /mnt/lfs/sources/
-rm -rf PACKAGE-*/
-```
-
+chapter 7 is in it's own page [here](./lfsch7.md)\
 
 ## CHAPTER 6: Cross Compiling Temporary Tools
 #### Run every script as `lfs`
 
+#### Copy-paste friendly: This chapter but all in one [here](./lfsch6all-in-1.sh)<br>Or use this script
+```bash
+cd
+wget -c https://riorio805.github.io/os232/NOTES/lfsch6all-in-1.sh
+bash lfsch6all-in-1.sh
+```
+
+### 6.0 Check user `lfs` and `$LFS`
+Set `$LFS` variable
+```bash
+export LFS=/mnt/lfs
+```
+Check `$LFS` variable (make sure OK)
+```bash
+echo "===== ======="
+echo "Check $LFS..."
+if   [ -z $LFS  ] ; then 
+  echo ERROR: There is no LFS variable  === ERROR ===
+elif [ -d $LFS/ ] ; then
+  echo === === === === === === ===  LFS is $LFS/ === OK ===
+else
+  echo ERROR: There is no LFS directory === ERROR ===
+fi
+```
+
+
 ### 6.2 M4 install
 Approximate time required: 0.25 SBU
 ```bash
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 
 tar xf m4-*.tar.xz
 cd m4-*/
@@ -37,7 +49,7 @@ time {
 }
 
 
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 rm -rf m4-*/
 ```
 
@@ -46,7 +58,7 @@ rm -rf m4-*/
 Approximate time required: 0.35 SBU
 
 ```bash
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 
 tar xf ncurses-*.tar.gz
 cd ncurses-*/
@@ -54,7 +66,6 @@ cd ncurses-*/
 # Check gawk exists (output nothing)
 sed -i s/mawk// configure
 
-cd /mnt/lfs/sources/ncurses-*/
 mkdir build
 pushd build
   ../configure
@@ -81,7 +92,7 @@ time {
 
 echo "INPUT(-lncursesw)" > $LFS/usr/lib/libncurses.so
 
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 rm -rf ncurses-*/
 ```
 
@@ -90,7 +101,7 @@ rm -rf ncurses-*/
 ### 6.4 Bash install
 Approximate time required: 0.35 SBU
 ```bash
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 
 tar xf bash-*.tar.gz
 cd bash-*/
@@ -107,7 +118,7 @@ time {
 
 ln -sv bash $LFS/bin/sh
 
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 rm -rf bash-*/
 ```
 
@@ -116,7 +127,7 @@ rm -rf bash-*/
 ### 6.5 Coreutils install
 Approximate time required: 0.75 SBU
 ```bash
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 
 tar xf coreutils-*.tar.xz
 cd coreutils-*/
@@ -138,7 +149,7 @@ mkdir -pv $LFS/usr/share/man/man8
 mv -v $LFS/usr/share/man/man1/chroot.1 $LFS/usr/share/man/man8/chroot.8
 sed -i 's/"1"/"8"/'                    $LFS/usr/share/man/man8/chroot.8
 
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 rm -rf coreutils-*/
 ```
 
@@ -146,7 +157,7 @@ rm -rf coreutils-*/
 ### 6.6 Diffutils install
 Approximate time required: 0.2 SBU
 ```bash
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 
 tar xf diffutils-*.tar.xz
 cd diffutils-*/
@@ -160,7 +171,7 @@ time {
     make DESTDIR=$LFS install;
 }
 
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 rm -rf diffutils-*/
 ```
 
@@ -168,7 +179,7 @@ rm -rf diffutils-*/
 ### 6.7 File install
 Approximate time required: 0.2 SBU
 ```bash
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 
 tar xf file-*.tar.gz
 cd file-*/
@@ -192,7 +203,7 @@ make DESTDIR=$LFS install;
 
 rm -v $LFS/usr/lib/libmagic.la
 
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 rm -rf file-*/
 ```
 
@@ -200,7 +211,7 @@ rm -rf file-*/
 ### 6.8 Findutils install
 Approximate time required: 0.3 SBU
 ```bash
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 
 tar xf findutils-*.tar.xz
 cd findutils-*/
@@ -215,7 +226,7 @@ time {
     make DESTDIR=$LFS install;
 }
 
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 rm -rf findutils-*/
 ```
 
@@ -223,7 +234,7 @@ rm -rf findutils-*/
 ### 6.9 Gawk install (haha very funny)
 Approximate time required: 0.25 SBU
 ```bash
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 
 tar xf gawk-*.tar.xz
 cd gawk-*/
@@ -239,7 +250,7 @@ time {
     make DESTDIR=$LFS install;
 }
 
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 rm -rf gawk-*/
 ```
 
@@ -247,7 +258,7 @@ rm -rf gawk-*/
 ### 6.10 Grep install
 Approximate time required: 0.2 SBU
 ```bash
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 
 tar xf grep-*.tar.xz
 cd grep-*/
@@ -261,7 +272,7 @@ time {
     make DESTDIR=$LFS install;
 }
 
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 rm -rf grep-*/
 ```
 
@@ -269,7 +280,7 @@ rm -rf grep-*/
 ### 6.11 Gzip install
 Approximate time required: 0.15 SBU
 ```bash
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 
 tar xf gzip-*.tar.xz
 cd gzip-*/
@@ -281,7 +292,7 @@ time {
     make DESTDIR=$LFS install;
 }
 
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 rm -rf gzip-*/
 ```
 
@@ -289,7 +300,7 @@ rm -rf gzip-*/
 ### 6.12 Make install
 Approximate time required: 0.1 SBU
 ```bash
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 
 tar xf make-*.tar.gz
 cd make-*/
@@ -305,7 +316,7 @@ time {
 }
 
 
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 rm -rf make-*/
 ```
 
@@ -313,7 +324,7 @@ rm -rf make-*/
 ### 6.13 Patch install
 Approximate time required: 0.17 SBU
 ```bash
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 
 tar xf patch-*.tar.xz
 cd patch-*/
@@ -327,7 +338,7 @@ time {
     make DESTDIR=$LFS install;
 }
 
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 rm -rf patch-*/
 ```
 
@@ -335,7 +346,7 @@ rm -rf patch-*/
 ### 6.14 Sed install
 Approximate time required: 0.2 SBU
 ```bash
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 
 tar xf sed-*.tar.xz
 cd sed-*/
@@ -349,7 +360,7 @@ time {
     make DESTDIR=$LFS install;
 }
 
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 rm -rf sed-*/
 ```
 
@@ -357,7 +368,7 @@ rm -rf sed-*/
 ### 6.15 Tar install
 Approximate time required: 0.3 SBU
 ```bash
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 
 tar xf tar-*.tar.xz
 cd tar-*/
@@ -371,7 +382,7 @@ time {
     make DESTDIR=$LFS install;
 }
 
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 rm -rf tar-*/
 ```
 
@@ -379,7 +390,7 @@ rm -rf tar-*/
 ### 6.16 Xz install
 Approximate time required: 0.2 SBU
 ```bash
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 
 tar xf xz-*.tar.xz
 cd xz-*/
@@ -397,7 +408,7 @@ time {
 
 rm -v $LFS/usr/lib/liblzma.la
 
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 rm -rf xz-*/
 ```
 
@@ -405,7 +416,7 @@ rm -rf xz-*/
 ### 6.17 Binutils pass 2 install
 Approximate time required: 1.3 SBU
 ```bash
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 
 tar xf binutils-*.tar.xz
 cd binutils-*/
@@ -434,7 +445,7 @@ time {
 # Remove the libtool archive files
 rm -v $LFS/usr/lib/lib{bfd,ctf,ctf-nobfd,opcodes,sframe}.{a,la}
 
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 rm -rf binutils-*/
 ```
 
@@ -442,7 +453,7 @@ rm -rf binutils-*/
 ### 6.18 Gcc pass 2 install
 Approximate time required: 11.3 SBU
 ```bash
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 
 tar xf gcc-*.tar.xz
 cd gcc-*/
@@ -495,6 +506,6 @@ ln -sv gcc $LFS/usr/bin/cc
 
 # Installation here
 
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 rm -rf gcc-*/
 ```
