@@ -1,6 +1,7 @@
 ## CHAPTER 5: Compiling a Cross-Toolchain
->Complete log version, for debugging reasons.
+#### Complete log version, for debugging reasons.
 
+### IMPORTANT
 Log files are created in `$HOME/log/`.<br>
 Create the log directory
 ```bash
@@ -8,8 +9,9 @@ if [ ! -d "$HOME/lfs-log" ]; then
     mkdir $HOME/lfs-log
 fi
 ```
+If log directory doesn't exist, the log won't be created
 
-
+---
 Binutils install (Pass 1)
 Run as `lfs`
 ```bash

@@ -1,5 +1,6 @@
 #### Preface:
-hopefully this works lol good luck
+hopefully this works lol good luck\
+tip: you can log in as all 3 accounts at once
 
 ## CHAPTER 2: Preparing the Host System
 #### Run as `user` and `root`
@@ -9,7 +10,7 @@ Set `$LFS` variable
 export LFS=/mnt/lfs
 ```
 
-Check `$LFS` variable
+Check `$LFS` variable (make sure OK)
 ```bash
 echo "===== ======="
 echo "Check $LFS..."
@@ -30,7 +31,8 @@ Set parallel make using 4 cores
 export MAKEFLAGS='-j4'
 ```
 
-Package download ([from aos](https://osp4diss.vlsm.org/W08-03.html))
+#### Run as `root`
+Create sources directory and package download ([from aos](https://osp4diss.vlsm.org/W08-03.html))
 ```bash
 if [[ "$(id -u)" == "0" ]] ; then
     echo "============================================"
@@ -118,7 +120,7 @@ EOF
 
 
 ## CHAPTER 5: Compiling a Cross-Toolchain
-NOTE: This section is available with logging enabled [here](./le_fisch_ch5_with_log.md).
+NOTE: This section is available with logging enabled [here](./le_fisch_5_with_log.md).
 
 Dependency chain:
 > binutils<br>
@@ -127,6 +129,8 @@ Dependency chain:
 
 ### Binutils install (Pass 1)
 #### Run as `lfs`
+Approximate time required: 1 SBU\
+(~2m35s on my laptop)
 ```bash
 cd /mnt/lfs/sources/
 
@@ -154,7 +158,8 @@ rm -rf binutils-*/
 
 ---
 ### GCC install (Intel x64 only)
-Don't delete source, later used to install libstdc++
+Don't delete source, later used to install libstdc++\
+Approximate time required: 9.8 SBU
 ```bash
 cd /mnt/lfs/sources/
 
@@ -213,6 +218,7 @@ rm -rf build/
 
 ---
 ### Linux API headers install
+Approximate time required: ~0.2 SBU
 ```bash
 cd /mnt/lfs/sources/
 
@@ -232,6 +238,7 @@ rm -rf linux-*/
 
 ---
 ### glibc install
+Approximate time required: 4.2 SBU
 ```bash
 cd /mnt/lfs/sources/
 
@@ -286,6 +293,7 @@ rm -rf glibc-*/
 ---
 
 ### libstdc++ install
+Approximate time required: 0.5 SBU\
 (in gcc)
 ```bash
 if [ ! -d /mnt/lfs/sources/gcc-*/ ]; then
