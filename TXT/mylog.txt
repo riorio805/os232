@@ -83,7 +83,7 @@ ZCZC W05 20 L24 Doing Week05 pop quizzes
 ZCZC W05 30 L07 Running Week05 demo files
 ZCZC W05 45 L06 Study
 
-ZCZC W04 15 L41 Total time writing TXT/mylog.txt
+ZCZC W05 15 L41 Total time writing TXT/mylog.txt
 
 
 # Week 6
@@ -91,4 +91,15 @@ ZCZC W06 230 L00 this week
 
 
 # Week 7
-ZCZC W07 180 L00 this week again
+ZCZC W07 180 L00 this week
+
+
+# Week 8
+ZCZC W08 100 L02 CLASSROOM thursday
+
+ZCZC W08 45 L09 Assignments
+ZCZC W08 20 L24 Doing Week05 pop quizzes
+ZCZC W08 30 L07 Running Week05 demo files
+ZCZC W08 45 L06 Study
+ZCZC W08 15 L05 Weekly quiz
+ZCZC W08 15 L41 Total time writing TXT/mylog.txt
