@@ -459,12 +459,12 @@ tar xf gcc-*.tar.xz
 cd gcc-*/
 
 # additional required packages
-tar -xf ../mpfr-4.20tar.xz
-mv -v mpfr-4.20 mpfr
-tar -xf ../gmp-6.30tar.xz
-mv -v gmp-6.30 gmp
-tar -xf ../mpc-1.31tar.gz
-mv -v mpc-1.31 mpc
+tar -xf ../mpfr-4.2.0.tar.xz
+mv -v mpfr-4.2.0 mpfr
+tar -xf ../gmp-6.3.0.tar.xz
+mv -v gmp-6.3.0 gmp
+tar -xf ../mpc-1.3.1.tar.gz
+mv -v mpc-1.3.1 mpc
 
 # 64 bit lib name
 case $(uname -m) in

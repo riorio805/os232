@@ -1,5 +1,5 @@
 #### Preface:
-these are my timings for build installs
+these are my timings for builds / compiles / installs
 
 ### Chapter 5 install times
 Package | Time in seconds<br>(approx.) | Time in SBU<br>(approx.)
@@ -47,6 +47,86 @@ Backup | Time in seconds<br>(approx.) | Time in SBU<br>(approx.)
 -|-:|-:
 LFS             |946.755|   6.1
 
-### Chapter 8 packages
+
+
+### Chapter 8 install times
 Package | Time in seconds<br>(approx.) | Time in SBU<br>(approx.)
 -|-:|-:
+man-pages           ||
+iana-etc            ||
+glibc               ||
+zlib                ||
+bzip2               ||
+xz                  ||
+zstd                ||
+file                ||
+readline            ||
+m4                  ||
+bc                  ||
+flex                ||
+tcl                 ||
+expect              ||
+dejagnu             ||
+binutils            ||
+gmp                 ||
+mpfr                ||
+mpc                 ||
+attr                ||
+acl                 ||
+libcap              ||
+libxcrypt           ||
+shadow              ||
+gcc                 ||
+pkgconf             ||
+ncurses             ||
+sed                 ||
+psmisc              ||
+gettext             ||
+bison               ||
+grep                ||
+bash                ||
+libtool             ||
+gdbm                ||
+gperf               ||
+expat               ||
+inetutils           ||
+less                ||
+perl                ||
+xml::parser         ||
+intltool            ||
+autoconf            ||
+automake            ||
+openssl             ||
+kmod                ||
+libelf-from-elfutils||
+libffi              ||
+python              ||
+flit-core           ||
+wheel               ||
+ninja               ||
+meson               ||
+coreutils           ||
+check               ||
+diffutils           ||
+gawk                ||
+findutils           ||
+groff               ||
+grub                ||
+gzip                ||
+iproute2            ||
+kbd                 ||
+libpipeline         ||
+make                ||
+patch               ||
+tar                 ||
+texinfo             ||
+vim                 ||
+markupsafe          ||
+jinja2              ||
+udev-from-systemd   ||
+man-db              ||
+procps-ng           ||
+util-linux          ||
+e2fsprogs           ||
+sysklogd            ||
+sysvinit            ||

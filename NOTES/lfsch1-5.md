@@ -117,24 +117,23 @@ export LFS LC_ALL LFS_TGT PATH CONFIG_SITE
 EOF
 ```
 
-
+Ensure the environment is fully prepared\
+Force the bash shell to read the new user profile
+```bash
+source ~/.bash_profile
+```
 
 ## CHAPTER 5: Compiling a Cross-Toolchain
 NOTE: This section is available with logging enabled [here](./le_fisch_5_with_log.md).
-
-Dependency chain:
-> binutils<br>
-> gcc<br>
-> linux headers -> glibc -> libstdc++<br>
 
 ### Binutils install (Pass 1)
 #### Run as `lfs`
 Approximate time required: 1 SBU\
 (~2m35s on my laptop)
 ```bash
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 
-tar xf binutils-*.tar.xz
+tar xfv binutils-*.tar.xz
 cd binutils-*/
 
 mkdir -v build
@@ -152,7 +151,7 @@ time {
 }
 echo "I am $(whoami); using $(uname -r) with $(nproc) cores."
 
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 rm -rf binutils-*/
 ```
 
@@ -161,9 +160,9 @@ rm -rf binutils-*/
 Don't delete source, later used to install libstdc++\
 Approximate time required: 9.8 SBU
 ```bash
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 
-tar xf gcc-*.tar.xz
+tar xfv gcc-*.tar.xz
 cd gcc-*/
 
 tar -xf ../mpfr-4.2.0.tar.xz
@@ -220,9 +219,9 @@ rm -rf build/
 ### Linux API headers install
 Approximate time required: ~0.2 SBU
 ```bash
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 
-tar xf linux-*.tar.xz
+tar xfv linux-*.tar.xz
 cd linux-*/
 
 time {
@@ -232,7 +231,7 @@ time {
   cp -rv usr/include $LFS/usr;
 }
 
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 rm -rf linux-*/
 ```
 
@@ -240,9 +239,9 @@ rm -rf linux-*/
 ### glibc install
 Approximate time required: 4.2 SBU
 ```bash
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 
-tar xf glibc-*.tar.xz
+tar xfv glibc-*.tar.xz
 cd glibc-*/
 
 case $(uname -m) in
@@ -286,7 +285,7 @@ rm -v a.out
     
 delete glibc source
 ```bash
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 rm -rf glibc-*/
 ```
 
@@ -296,12 +295,12 @@ rm -rf glibc-*/
 Approximate time required: 0.5 SBU\
 (in gcc)
 ```bash
-if [ ! -d /mnt/lfs/sources/gcc-*/ ]; then
+if [ ! -d $LFS/sources/gcc-*/ ]; then
     echo "GCC source not found. Extracting..."
-    cd /mnt/lfs/sources/
-    tar xf gcc-*.tar.xz
+    cd $LFS/sources/
+    tar xfv gcc-*.tar.xz
 fi
-cd /mnt/lfs/sources/gcc-*/
+cd $LFS/sources/gcc-*/
 mkdir -v build
 cd       build
 
@@ -320,12 +319,12 @@ time {
 
 rm -v $LFS/usr/lib/lib{stdc++,stdc++fs,supc++}.la
 
-cd /mnt/lfs/sources/
+cd $LFS/sources/
 ```
 
 
 ## FINISHING: bash script
-#### Run as user (your github account)
+#### Run as `user` (your github account)
 ```bash
 bash $HOME/mywork/WEEK08/08-WEEK08.sh
 bash $HOME/git/os232/TXT/myscript.sh
