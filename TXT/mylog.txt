@@ -98,6 +98,7 @@ ZCZC W07 180 L00 this week
 ZCZC W08 100 L02 CLASSROOM thursday
 
 ZCZC W08 45 L09 Assignments
+ZCZC W08 100 L09 LFS related
 ZCZC W08 20 L24 Doing Week05 pop quizzes
 ZCZC W08 30 L07 Running Week05 demo files
 ZCZC W08 45 L06 Study
