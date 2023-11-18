@@ -1,18 +1,22 @@
 Why the fuck are there 83 subsections in this chapter???
 
-![whyyyyy](whyyyyyy.png)
-![I pretend I do not see it](https://i.kym-cdn.com/entries/icons/facebook/000/046/214/i_pretend_i_do_not_see_it.jpg)
+<img src="./whyyyyyy.png" width=400 alt="whyyyyyy">
+
+<br>
+<img src="https://i.kym-cdn.com/entries/icons/facebook/000/046/214/i_pretend_i_do_not_see_it.jpg" width=400 alt="I pretend I do not see it">
 
 
 tample
 ```bash
 cd /sources/
 
+time {
 tar xf PACKAGE-*.tar.xz
 cd PACKAGE-*/
 
 # Installation here
 
+}
 cd /sources/
 rm -rf PACKAGE-*/
 ```

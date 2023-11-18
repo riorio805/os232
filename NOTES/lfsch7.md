@@ -173,15 +173,15 @@ Approximate time required: 0.3 SBU
 ```bash
 cd /sources/
 
+time {
 tar xf bison-*.tar.xz
 cd bison-*/
 
 # Installation here
-time {
-    ./configure --prefix=/usr \
-            --docdir=/usr/share/doc/bison-3.8.2;
-    make;
-    make install;
+./configure --prefix=/usr \
+        --docdir=/usr/share/doc/bison-3.8.2;
+make;
+make install;
 }
 
 cd /sources/
@@ -194,23 +194,23 @@ Approximate time required: 1.53 SBU
 ```bash
 cd /sources/
 
+time {
 tar xf perl-*.tar.xz
 cd perl-*/
 
 # Installation here
-time {
-    sh Configure -des                                        \
-                -Dprefix=/usr                               \
-                -Dvendorprefix=/usr                         \
-                -Duseshrplib                                \
-                -Dprivlib=/usr/lib/perl5/5.38/core_perl     \
-                -Darchlib=/usr/lib/perl5/5.38/core_perl     \
-                -Dsitelib=/usr/lib/perl5/5.38/site_perl     \
-                -Dsitearch=/usr/lib/perl5/5.38/site_perl    \
-                -Dvendorlib=/usr/lib/perl5/5.38/vendor_perl \
-                -Dvendorarch=/usr/lib/perl5/5.38/vendor_perl;
-    make;
-    make install;
+sh Configure -des                                        \
+            -Dprefix=/usr                               \
+            -Dvendorprefix=/usr                         \
+            -Duseshrplib                                \
+            -Dprivlib=/usr/lib/perl5/5.38/core_perl     \
+            -Darchlib=/usr/lib/perl5/5.38/core_perl     \
+            -Dsitelib=/usr/lib/perl5/5.38/site_perl     \
+            -Dsitearch=/usr/lib/perl5/5.38/site_perl    \
+            -Dvendorlib=/usr/lib/perl5/5.38/vendor_perl \
+            -Dvendorarch=/usr/lib/perl5/5.38/vendor_perl;
+make;
+make install;
 }
 
 cd /sources/
@@ -225,16 +225,16 @@ Approximate time required: 1.2 SBU
 ```bash
 cd /sources/
 
+time {
 tar xf Python-*.tar.xz
 cd Python-*/
 
 # Installation here
-time {
-    ./configure --prefix=/usr   \
-            --enable-shared \
-            --without-ensurepip;
-    make;
-    make install;
+./configure --prefix=/usr   \
+        --enable-shared \
+        --without-ensurepip;
+make;
+make install;
 }
 
 cd /sources/
@@ -247,14 +247,14 @@ Approximate time required: 0.3 SBU
 ```bash
 cd /sources/
 
+time {
 tar xf texinfo-*.tar.xz
 cd texinfo-*/
 
 # Installation here
-time {
-    ./configure --prefix=/usr;
-    make;
-    make install;
+./configure --prefix=/usr;
+make;
+make install;
 }
 
 cd /sources/
@@ -267,28 +267,29 @@ Approximate time required: 0.7 SBU
 ```bash
 cd /sources/
 
+time {
 tar xf util-linux-*.tar.xz
 cd util-linux-*/
 
 # Installation here
 mkdir -pv /var/lib/hwclock
 
-time {
-    ./configure ADJTIME_PATH=/var/lib/hwclock/adjtime    \
-            --libdir=/usr/lib    \
-            --runstatedir=/run   \
-            --docdir=/usr/share/doc/util-linux-2.39.1 \
-            --disable-chfn-chsh  \
-            --disable-login      \
-            --disable-nologin    \
-            --disable-su         \
-            --disable-setpriv    \
-            --disable-runuser    \
-            --disable-pylibmount \
-            --disable-static     \
-            --without-python;
-    make;
-    make install;
+
+./configure ADJTIME_PATH=/var/lib/hwclock/adjtime    \
+        --libdir=/usr/lib    \
+        --runstatedir=/run   \
+        --docdir=/usr/share/doc/util-linux-2.39.1 \
+        --disable-chfn-chsh  \
+        --disable-login      \
+        --disable-nologin    \
+        --disable-su         \
+        --disable-setpriv    \
+        --disable-runuser    \
+        --disable-pylibmount \
+        --disable-static     \
+        --without-python;
+make;
+make install;
 }
 
 cd /sources/
@@ -357,7 +358,9 @@ tar -xpf $HOME/lfs-temp-tools-12.0.tar.xz
 ```
 
 
-## 7.14.B Reentering chroot environment
+## 7.13.B Reentering chroot environment
+Before continuing to chapter 8
+
 Mount virtual file systems and enter chroot environment
 #### Run as `root`
 ```bash

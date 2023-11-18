@@ -56,6 +56,7 @@ fi
 ```
 
 > Make sure files “wget-list-sysv” and “md5sums” are in $LFS/sources/
+
 ```bash
 ls -al $LFS/sources/{md5sums,wget-list-sysv}
 # -rw-r--r-- 1 root root 5130 Sep  1 23:00 /mnt/lfs/sources/md5sums
@@ -129,25 +130,24 @@ NOTE: This section is available with logging enabled [here](./le_fisch_5_with_lo
 ### Binutils install (Pass 1)
 #### Run as `lfs`
 Approximate time required: 1 SBU\
-(~2m35s on my laptop)
+(~1m8s on mine)
 ```bash
 cd $LFS/sources/
 
+time {
 tar xfv binutils-*.tar.xz
 cd binutils-*/
 
 mkdir -v build
 cd       build
-
-time {
-  ../configure --prefix=$LFS/tools \
-      --with-sysroot=$LFS \
-      --target=$LFS_TGT   \
-      --disable-nls       \
-      --enable-gprofng=no \
-      --disable-werror;
-  make;
-  make install;
+../configure --prefix=$LFS/tools \
+    --with-sysroot=$LFS \
+    --target=$LFS_TGT   \
+    --disable-nls       \
+    --enable-gprofng=no \
+    --disable-werror;
+make;
+make install;
 }
 echo "I am $(whoami); using $(uname -r) with $(nproc) cores."
 
@@ -158,10 +158,11 @@ rm -rf binutils-*/
 ---
 ### GCC install (Intel x64 only)
 Don't delete source, later used to install libstdc++\
-Approximate time required: 9.8 SBU
+Approximate time required: 10.48 SBU
 ```bash
 cd $LFS/sources/
 
+time {
 tar xfv gcc-*.tar.xz
 cd gcc-*/
 
@@ -182,29 +183,28 @@ esac
 mkdir -v build
 cd       build
 
-time {
-  ../configure                  \
-      --target=$LFS_TGT         \
-      --prefix=$LFS/tools       \
-      --with-glibc-version=2.38 \
-      --with-sysroot=$LFS       \
-      --with-newlib             \
-      --without-headers         \
-      --enable-default-pie      \
-      --enable-default-ssp      \
-      --disable-nls             \
-      --disable-shared          \
-      --disable-multilib        \
-      --disable-threads         \
-      --disable-libatomic       \
-      --disable-libgomp         \
-      --disable-libquadmath     \
-      --disable-libssp          \
-      --disable-libvtv          \
-      --disable-libstdcxx       \
-      --enable-languages=c,c++;
-  make;
-  make install;
+../configure                  \
+    --target=$LFS_TGT         \
+    --prefix=$LFS/tools       \
+    --with-glibc-version=2.38 \
+    --with-sysroot=$LFS       \
+    --with-newlib             \
+    --without-headers         \
+    --enable-default-pie      \
+    --enable-default-ssp      \
+    --disable-nls             \
+    --disable-shared          \
+    --disable-multilib        \
+    --disable-threads         \
+    --disable-libatomic       \
+    --disable-libgomp         \
+    --disable-libquadmath     \
+    --disable-libssp          \
+    --disable-libvtv          \
+    --disable-libstdcxx       \
+    --enable-languages=c,c++;
+make;
+make install;
 }
 
 cd ..
@@ -217,18 +217,18 @@ rm -rf build/
 
 ---
 ### Linux API headers install
-Approximate time required: ~0.2 SBU
+Approximate time required: 0.4 SBU
 ```bash
 cd $LFS/sources/
 
+time {
 tar xfv linux-*.tar.xz
 cd linux-*/
 
-time {
-  make mrproper;
-  make headers;
-  find usr/include -type f ! -name '*.h' -delete;
-  cp -rv usr/include $LFS/usr;
+make mrproper;
+make headers;
+find usr/include -type f ! -name '*.h' -delete;
+cp -rv usr/include $LFS/usr;
 }
 
 cd $LFS/sources/
@@ -237,10 +237,11 @@ rm -rf linux-*/
 
 ---
 ### glibc install
-Approximate time required: 4.2 SBU
+Approximate time required: 3.9 SBU
 ```bash
 cd $LFS/sources/
 
+time {
 tar xfv glibc-*.tar.xz
 cd glibc-*/
 
@@ -258,17 +259,16 @@ mkdir -v build
 cd       build
 echo "rootsbindir=/usr/sbin" > configparms
 
-time {
-  ../configure                           \
-      --prefix=/usr                      \
-      --host=$LFS_TGT                    \
-      --build=$(../scripts/config.guess) \
-      --enable-kernel=4.14               \
-      --with-headers=$LFS/usr/include    \
-      libc_cv_slibdir=/usr/lib;
-  # compile and install
-  make;
-	make DESTDIR=$LFS install;
+../configure                           \
+    --prefix=/usr                      \
+    --host=$LFS_TGT                    \
+    --build=$(../scripts/config.guess) \
+    --enable-kernel=4.14               \
+    --with-headers=$LFS/usr/include    \
+    libc_cv_slibdir=/usr/lib;
+# compile and install
+make;
+make DESTDIR=$LFS install;
 }
 
 sed '/RTLDLIST=/s@/usr@@g' -i $LFS/usr/bin/ldd
@@ -292,7 +292,7 @@ rm -rf glibc-*/
 ---
 
 ### libstdc++ install
-Approximate time required: 0.5 SBU\
+Approximate time required: 0.8 SBU\
 (in gcc)
 ```bash
 if [ ! -d $LFS/sources/gcc-*/ ]; then
@@ -305,16 +305,16 @@ mkdir -v build
 cd       build
 
 time {
-    ../libstdc++-v3/configure           \
-        --host=$LFS_TGT                 \
-        --build=$(../config.guess)      \
-        --prefix=/usr                   \
-        --disable-multilib              \
-        --disable-nls                   \
-        --disable-libstdcxx-pch         \
-        --with-gxx-include-dir=/tools/$LFS_TGT/include/c++/13.2.0;
-    make;
-    make DESTDIR=$LFS install;
+../libstdc++-v3/configure           \
+    --host=$LFS_TGT                 \
+    --build=$(../config.guess)      \
+    --prefix=/usr                   \
+    --disable-multilib              \
+    --disable-nls                   \
+    --disable-libstdcxx-pch         \
+    --with-gxx-include-dir=/tools/$LFS_TGT/include/c++/13.2.0;
+make;
+make DESTDIR=$LFS install;
 }
 
 rm -v $LFS/usr/lib/lib{stdc++,stdc++fs,supc++}.la

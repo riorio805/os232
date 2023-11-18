@@ -30,24 +30,23 @@ else
 fi
 ```
 
-
+---
 ### 6.2 M4 install
 Approximate time required: 0.25 SBU
 ```bash
 cd $LFS/sources/
 
+time {
 tar xf m4-*.tar.xz
 cd m4-*/
 
 # Installation here
-time {
-    ./configure --prefix=/usr\
-                --host=$LFS_TGT\
-                --build=$(build-aux/config.guess);
-    make;
-    make DESTDIR=$LFS install;
+./configure --prefix=/usr\
+            --host=$LFS_TGT\
+            --build=$(build-aux/config.guess);
+make;
+make DESTDIR=$LFS install;
 }
-
 
 cd $LFS/sources/
 rm -rf m4-*/
@@ -60,6 +59,7 @@ Approximate time required: 0.35 SBU
 ```bash
 cd $LFS/sources/
 
+time {
 tar xf ncurses-*.tar.gz
 cd ncurses-*/
 
@@ -73,21 +73,20 @@ pushd build
   make -C progs tic
 popd
 
-time {
-    ./configure --prefix=/usr                \
-        --host=$LFS_TGT              \
-        --build=$(./config.guess)    \
-        --mandir=/usr/share/man      \
-        --with-manpage-format=normal \
-        --with-shared                \
-        --without-normal             \
-        --with-cxx-shared            \
-        --without-debug              \
-        --without-ada                \
-        --disable-stripping          \
-        --enable-widec;
-    make;
-    make DESTDIR=$LFS TIC_PATH=$(pwd)/build/progs/tic install;
+./configure --prefix=/usr                \
+            --host=$LFS_TGT              \
+            --build=$(./config.guess)    \
+            --mandir=/usr/share/man      \
+            --with-manpage-format=normal \
+            --with-shared                \
+            --without-normal             \
+            --with-cxx-shared            \
+            --without-debug              \
+            --without-ada                \
+            --disable-stripping          \
+            --enable-widec;
+make;
+make DESTDIR=$LFS TIC_PATH=$(pwd)/build/progs/tic install;
 }
 
 echo "INPUT(-lncursesw)" > $LFS/usr/lib/libncurses.so
@@ -103,17 +102,17 @@ Approximate time required: 0.35 SBU
 ```bash
 cd $LFS/sources/
 
+time {
 tar xf bash-*.tar.gz
 cd bash-*/
 
 # Installation here
-time {
-    ./configure --prefix=/usr                      \
-            --build=$(sh support/config.guess) \
-            --host=$LFS_TGT                    \
-            --without-bash-malloc;
-    make;
-    make DESTDIR=$LFS install;
+./configure --prefix=/usr                      \
+        --build=$(sh support/config.guess) \
+        --host=$LFS_TGT                    \
+        --without-bash-malloc;
+make;
+make DESTDIR=$LFS install;
 }
 
 ln -sv bash $LFS/bin/sh
@@ -129,19 +128,20 @@ Approximate time required: 0.75 SBU
 ```bash
 cd $LFS/sources/
 
+time {
 tar xf coreutils-*.tar.xz
 cd coreutils-*/
 
 # Installation here
-time {
-    ./configure --prefix=/usr                     \
+
+./configure --prefix=/usr                     \
             --host=$LFS_TGT                   \
             --build=$(build-aux/config.guess) \
             --enable-install-program=hostname \
             --enable-no-install-program=kill,uptime \
             gl_cv_macro_MB_CUR_MAX_good=y;
-    make;
-    make DESTDIR=$LFS install;
+make;
+make DESTDIR=$LFS install;
 }
 
 mv -v $LFS/usr/bin/chroot              $LFS/usr/sbin
@@ -159,16 +159,17 @@ Approximate time required: 0.2 SBU
 ```bash
 cd $LFS/sources/
 
+time {
 tar xf diffutils-*.tar.xz
 cd diffutils-*/
 
 # Installation here
-time {
-    ./configure --prefix=/usr   \
-            --host=$LFS_TGT \
-            --build=$(./build-aux/config.guess);
-    make;
-    make DESTDIR=$LFS install;
+
+./configure --prefix=/usr   \
+        --host=$LFS_TGT \
+        --build=$(./build-aux/config.guess);
+make;
+make DESTDIR=$LFS install;
 }
 
 cd $LFS/sources/
@@ -181,13 +182,12 @@ Approximate time required: 0.2 SBU
 ```bash
 cd $LFS/sources/
 
+time {
 tar xf file-*.tar.gz
 cd file-*/
 
 # Installation here
 mkdir build
-
-time {
 pushd build;
   ../configure --disable-bzlib      \
                --disable-libseccomp \
@@ -213,17 +213,18 @@ Approximate time required: 0.3 SBU
 ```bash
 cd $LFS/sources/
 
+time {
 tar xf findutils-*.tar.xz
 cd findutils-*/
 
 # Installation here
-time {
-    ./configure --prefix=/usr                   \
-            --localstatedir=/var/lib/locate \
-            --host=$LFS_TGT                 \
-            --build=$(build-aux/config.guess);
-    make;
-    make DESTDIR=$LFS install;
+
+./configure --prefix=/usr                   \
+        --localstatedir=/var/lib/locate \
+        --host=$LFS_TGT                 \
+        --build=$(build-aux/config.guess);
+make;
+make DESTDIR=$LFS install;
 }
 
 cd $LFS/sources/
@@ -236,18 +237,18 @@ Approximate time required: 0.25 SBU
 ```bash
 cd $LFS/sources/
 
+time {
 tar xf gawk-*.tar.xz
 cd gawk-*/
 
 sed -i 's/extras//' Makefile.in
 
 # Installation here
-time {
-    ./configure --prefix=/usr   \
-                --host=$LFS_TGT \
-                --build=$(build-aux/config.guess);
-    make;
-    make DESTDIR=$LFS install;
+./configure --prefix=/usr   \
+            --host=$LFS_TGT \
+            --build=$(build-aux/config.guess);
+make;
+make DESTDIR=$LFS install;
 }
 
 cd $LFS/sources/
@@ -260,11 +261,12 @@ Approximate time required: 0.2 SBU
 ```bash
 cd $LFS/sources/
 
+time {
 tar xf grep-*.tar.xz
 cd grep-*/
 
 # Installation here
-time {
+
     ./configure --prefix=/usr   \
             --host=$LFS_TGT \
             --build=$(./build-aux/config.guess);
@@ -282,11 +284,12 @@ Approximate time required: 0.15 SBU
 ```bash
 cd $LFS/sources/
 
+time {
 tar xf gzip-*.tar.xz
 cd gzip-*/
 
 # Installation here
-time {
+
     ./configure --prefix=/usr --host=$LFS_TGT;
     make;
     make DESTDIR=$LFS install;
@@ -302,11 +305,12 @@ Approximate time required: 0.1 SBU
 ```bash
 cd $LFS/sources/
 
+time {
 tar xf make-*.tar.gz
 cd make-*/
 
 # Installation here
-time {
+
     ./configure --prefix=/usr   \
             --without-guile \
             --host=$LFS_TGT \
@@ -326,11 +330,12 @@ Approximate time required: 0.17 SBU
 ```bash
 cd $LFS/sources/
 
+time {
 tar xf patch-*.tar.xz
 cd patch-*/
 
 # Installation here
-time {
+
     ./configure --prefix=/usr   \
             --host=$LFS_TGT \
             --build=$(build-aux/config.guess);
@@ -348,11 +353,12 @@ Approximate time required: 0.2 SBU
 ```bash
 cd $LFS/sources/
 
+time {
 tar xf sed-*.tar.xz
 cd sed-*/
 
 # Installation here
-time {
+
     ./configure --prefix=/usr   \
             --host=$LFS_TGT \
             --build=$(./build-aux/config.guess);
@@ -370,11 +376,12 @@ Approximate time required: 0.3 SBU
 ```bash
 cd $LFS/sources/
 
+time {
 tar xf tar-*.tar.xz
 cd tar-*/
 
 # Installation here
-time {
+
     ./configure --prefix=/usr   \
             --host=$LFS_TGT \
             --build=$(build-aux/config.guess);
@@ -392,11 +399,12 @@ Approximate time required: 0.2 SBU
 ```bash
 cd $LFS/sources/
 
+time {
 tar xf xz-*.tar.xz
 cd xz-*/
 
 # Installation here
-time {
+
     ./configure --prefix=/usr                 \
             --host=$LFS_TGT                   \
             --build=$(build-aux/config.guess) \
@@ -418,6 +426,7 @@ Approximate time required: 1.3 SBU
 ```bash
 cd $LFS/sources/
 
+time {
 tar xf binutils-*.tar.xz
 cd binutils-*/
 
@@ -428,7 +437,7 @@ sed '6009s/$add_dir//' -i ltmain.sh
 mkdir -v build
 cd       build
 
-time {
+
     ../configure                   \
         --prefix=/usr              \
         --build=$(../config.guess) \
@@ -455,6 +464,7 @@ Approximate time required: 11.3 SBU
 ```bash
 cd $LFS/sources/
 
+time {
 tar xf gcc-*.tar.xz
 cd gcc-*/
 
@@ -476,35 +486,33 @@ esac
 sed '/thread_header =/s/@.*@/gthr-posix.h/' \
     -i libgcc/Makefile.in libstdc++-v3/include/Makefile.in
 
+# Installation here
 mkdir -v build
 cd       build
 
-time {
-    ../configure                                       \
-        --build=$(../config.guess)                     \
-        --host=$LFS_TGT                                \
-        --target=$LFS_TGT                              \
-        LDFLAGS_FOR_TARGET=-L$PWD/$LFS_TGT/libgcc      \
-        --prefix=/usr                                  \
-        --with-build-sysroot=$LFS                      \
-        --enable-default-pie                           \
-        --enable-default-ssp                           \
-        --disable-nls                                  \
-        --disable-multilib                             \
-        --disable-libatomic                            \
-        --disable-libgomp                              \
-        --disable-libquadmath                          \
-        --disable-libsanitizer                         \
-        --disable-libssp                               \
-        --disable-libvtv                               \
-        --enable-languages=c,c++;
-    make;
-    make DESTDIR=$LFS install;
+../configure                                       \
+    --build=$(../config.guess)                     \
+    --host=$LFS_TGT                                \
+    --target=$LFS_TGT                              \
+    LDFLAGS_FOR_TARGET=-L$PWD/$LFS_TGT/libgcc      \
+    --prefix=/usr                                  \
+    --with-build-sysroot=$LFS                      \
+    --enable-default-pie                           \
+    --enable-default-ssp                           \
+    --disable-nls                                  \
+    --disable-multilib                             \
+    --disable-libatomic                            \
+    --disable-libgomp                              \
+    --disable-libquadmath                          \
+    --disable-libsanitizer                         \
+    --disable-libssp                               \
+    --disable-libvtv                               \
+    --enable-languages=c,c++;
+make;
+make DESTDIR=$LFS install;
 }
 
 ln -sv gcc $LFS/usr/bin/cc
-
-# Installation here
 
 cd $LFS/sources/
 rm -rf gcc-*/

@@ -7,6 +7,7 @@ personal notes
 - [Week 09: LFS ch.6](lfsch6.md)
 - [Week 09: LFS ch.7](lfsch7.md)
 - [Week 10: LFS ch.8](lfsch8.md) Not done yet
+-> [Total times](lfs_install_timings.md)
 
 #### previous quizzes:
 - [Week 01](w01-quiz.md) (Rev 43)
