@@ -96,9 +96,7 @@ case $(uname -m) in
 esac
 ```
 
-
 #### Run as `lfs`
-
 `lfs` bash settings
 ```bash
 cat > ~/.bash_profile << "EOF"
@@ -124,6 +122,7 @@ Move .bashrc out of the way
 [ ! -e /etc/bash.bashrc ] || mv -v /etc/bash.bashrc /etc/bash.bashrc.NOUSE
 ```
 
+#### Run as `lfs`
 Ensure the environment is fully prepared\
 Force the bash shell to read the new user profile
 ```bash
