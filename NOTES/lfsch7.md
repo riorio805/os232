@@ -1,12 +1,19 @@
+[<- Back](.)
+
 #### Preface:
 again, hopefully this works lol good luck\
 chapter 6 is in it's own file [here](./lfsch6.md)
 
 
 # CHAPTER 7: Entering Chroot and Building Additional Temporary Tools
+## 7.0.S Setup
 #### Run as `root`, no more `lfs`
 > The commands in the remainder of this book must be performed while logged in as user root and no longer as user lfs. Also, double check that $LFS is set in root's environment.
 
+Set `$LFS` variable
+```bash
+export LFS=/mnt/lfs
+```
 Check `$LFS` variable (make sure OK)
 ```bash
 echo "===== ======="
@@ -20,6 +27,8 @@ else
 fi
 ```
 
+
+---
 ## 7.2 Changing Ownership
 #### Run as `root`
 Change `$LFS/*` ownership from `lfs` to `root`
@@ -31,6 +40,7 @@ esac
 ```
 
 
+---
 ## 7.3 Preparing Virtual Kernel File Systems
 #### Run as `root`
 Mount virtual file systems
@@ -50,6 +60,8 @@ else
 fi
 ```
 
+
+---
 ## 7.4 Entering the Chroot Environment
 #### Run as `root`
 Its time to enter the matrix
@@ -61,8 +73,10 @@ chroot "$LFS" /usr/bin/env -i   \
     PATH=/usr/bin:/usr/sbin     \
     /bin/bash --login
 ```
-`(lfs chroot) I have no name!:/#`
+`(lfs chroot) I have no name!:/# `
 
+
+---
 ## 7.5 Creating Directories
 ```bash
 mkdir -pv /{boot,home,mnt,opt,srv}
@@ -85,11 +99,12 @@ install -dv -m 1777 /tmp /var/tmp
 ```
 
 Make sure `/usr/lib64` directory does not exist
+to comply with [Filesystem Hierarchy Standard (FHS)](https://refspecs.linuxfoundation.org/fhs.shtml)
 ```bash
 rm -rf /usr/lib64/
 ```
 
-
+---
 ## 7.6 Creating Essential Files and Symlinks
 ```bash
 ln -sv /proc/self/mounts /etc/mtab
@@ -148,6 +163,8 @@ chmod -v 664  /var/log/lastlog
 chmod -v 600  /var/log/btmp
 ```
 
+
+---
 ## 7.7 Gettext install
 Approximate time required: 1.55 SBU
 ```bash
@@ -168,6 +185,7 @@ rm -rf gettext-*/
 ```
 
 
+---
 ## 7.8 Bison install
 Approximate time required: 0.3 SBU
 ```bash
@@ -189,6 +207,7 @@ rm -rf bison-*/
 ```
 
 
+---
 ## 7.9 Perl install
 Approximate time required: 1.53 SBU
 ```bash
@@ -218,6 +237,7 @@ rm -rf perl-*/
 ```
 
 
+---
 ## 7.10 Python install
 > Some Python 3 modules can't be built now because the dependencies are not installed yet. The compilation of some files will fail and the compiler message may seem to indicate “fatal error”. The message should be ignored. Just make sure the toplevel make command has not failed.
 
@@ -242,6 +262,7 @@ rm -rf Python-*/
 ```
 
 
+---
 ## 7.11 Texinfo install
 Approximate time required: 0.3 SBU
 ```bash
@@ -262,6 +283,7 @@ rm -rf texinfo-*/
 ```
 
 
+---
 ## 7.12 Util-linux install
 Approximate time required: 0.7 SBU
 ```bash
@@ -297,9 +319,10 @@ rm -rf util-linux-*/
 ```
 
 
+---
 ## 7.13 Cleaning up and Saving the Temporary System
 
-## 7.13.1 cleaning
+## 7.13.1 Cleaning
 Do some cleaning to save ~1.1GB
 ```bash
 rm -rf /usr/share/{info,man,doc}/*
@@ -308,7 +331,7 @@ rm -rf /tools
 ```
 
 
-## 7.13.2 Create a backup (OPTIONAL BUT RECOMMENDED)
+## 7.13.2 Backup (OPTIONAL BUT RECOMMENDED)
 > "Real Computer Science Students Do BACKUP! Prove that you are a genuine (ORI) Computer Science student and not just an observer of Java language studies or a no-level Python zoologist."
 > \-RMS 12 october 2023
 
@@ -358,7 +381,7 @@ tar -xpf $HOME/lfs-temp-tools-12.0.tar.xz
 ```
 
 
-## 7.13.B Reentering chroot environment
+## 7.13.E Reentering chroot environment
 Before continuing to chapter 8
 
 Mount virtual file systems and enter chroot environment

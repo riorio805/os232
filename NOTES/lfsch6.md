@@ -2,17 +2,11 @@
 again, hopefully this works lol good luck\
 chapter 7 is in it's own page [here](./lfsch7.md)\
 
-## CHAPTER 6: Cross Compiling Temporary Tools
+# CHAPTER 6: Cross Compiling Temporary Tools
 #### Run every script as `lfs`
 
-#### Copy-paste friendly: This chapter but all in one [here](./lfsch6all-in-1.sh)<br>Or use this script
-```bash
-cd
-wget -c https://riorio805.github.io/os232/NOTES/lfsch6all-in-1.sh
-bash lfsch6all-in-1.sh
-```
-
-### 6.0 Check user `lfs` and `$LFS`
+## 6.0 Chapter 6 setup
+### 6.0.C Check user `lfs` and `$LFS`
 Set `$LFS` variable
 ```bash
 export LFS=/mnt/lfs
@@ -30,8 +24,17 @@ else
 fi
 ```
 
+### 6.0.P Copy-paste only
+This chapter but all in one [here](./lfsch6all-in-1.sh)\
+Or use this script (run as `lfs`)
+```bash
+cd
+wget -c https://riorio805.github.io/os232/NOTES/lfsch6all-in-1.sh
+bash lfsch6all-in-1.sh
+```
+
 ---
-### 6.2 M4 install
+## 6.2 M4 install
 Approximate time required: 0.25 SBU
 ```bash
 cd $LFS/sources/
@@ -53,7 +56,7 @@ rm -rf m4-*/
 ```
 
 ---
-### 6.3 Ncurses install
+## 6.3 Ncurses install
 Approximate time required: 0.35 SBU
 
 ```bash
@@ -97,7 +100,7 @@ rm -rf ncurses-*/
 
 
 ---
-### 6.4 Bash install
+## 6.4 Bash install
 Approximate time required: 0.35 SBU
 ```bash
 cd $LFS/sources/
@@ -123,7 +126,7 @@ rm -rf bash-*/
 
 
 ---
-### 6.5 Coreutils install
+## 6.5 Coreutils install
 Approximate time required: 0.75 SBU
 ```bash
 cd $LFS/sources/
@@ -154,7 +157,7 @@ rm -rf coreutils-*/
 ```
 
 ---
-### 6.6 Diffutils install
+## 6.6 Diffutils install
 Approximate time required: 0.2 SBU
 ```bash
 cd $LFS/sources/
@@ -177,7 +180,7 @@ rm -rf diffutils-*/
 ```
 
 ---
-### 6.7 File install
+## 6.7 File install
 Approximate time required: 0.2 SBU
 ```bash
 cd $LFS/sources/
@@ -208,7 +211,7 @@ rm -rf file-*/
 ```
 
 ---
-### 6.8 Findutils install
+## 6.8 Findutils install
 Approximate time required: 0.3 SBU
 ```bash
 cd $LFS/sources/
@@ -232,7 +235,7 @@ rm -rf findutils-*/
 ```
 
 ---
-### 6.9 Gawk install (haha very funny)
+## 6.9 Gawk install (haha very funny)
 Approximate time required: 0.25 SBU
 ```bash
 cd $LFS/sources/
@@ -256,7 +259,7 @@ rm -rf gawk-*/
 ```
 
 ---
-### 6.10 Grep install
+## 6.10 Grep install
 Approximate time required: 0.2 SBU
 ```bash
 cd $LFS/sources/
@@ -279,7 +282,7 @@ rm -rf grep-*/
 ```
 
 ---
-### 6.11 Gzip install
+## 6.11 Gzip install
 Approximate time required: 0.15 SBU
 ```bash
 cd $LFS/sources/
@@ -300,7 +303,7 @@ rm -rf gzip-*/
 ```
 
 ---
-### 6.12 Make install
+## 6.12 Make install
 Approximate time required: 0.1 SBU
 ```bash
 cd $LFS/sources/
@@ -325,7 +328,7 @@ rm -rf make-*/
 ```
 
 ---
-### 6.13 Patch install
+## 6.13 Patch install
 Approximate time required: 0.17 SBU
 ```bash
 cd $LFS/sources/
@@ -348,7 +351,7 @@ rm -rf patch-*/
 ```
 
 ---
-### 6.14 Sed install
+## 6.14 Sed install
 Approximate time required: 0.2 SBU
 ```bash
 cd $LFS/sources/
@@ -371,7 +374,7 @@ rm -rf sed-*/
 ```
 
 ---
-### 6.15 Tar install
+## 6.15 Tar install
 Approximate time required: 0.3 SBU
 ```bash
 cd $LFS/sources/
@@ -394,7 +397,7 @@ rm -rf tar-*/
 ```
 
 ---
-### 6.16 Xz install
+## 6.16 Xz install
 Approximate time required: 0.2 SBU
 ```bash
 cd $LFS/sources/
@@ -421,7 +424,7 @@ rm -rf xz-*/
 ```
 
 ---
-### 6.17 Binutils pass 2 install
+## 6.17 Binutils pass 2 install
 Approximate time required: 1.3 SBU
 ```bash
 cd $LFS/sources/
@@ -459,7 +462,7 @@ rm -rf binutils-*/
 ```
 
 ---
-### 6.18 Gcc pass 2 install
+## 6.18 Gcc pass 2 install
 Approximate time required: 11.3 SBU
 ```bash
 cd $LFS/sources/

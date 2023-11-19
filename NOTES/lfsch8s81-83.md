@@ -1,29 +1,14 @@
-Why the fuck are there 83 subsections in this chapter???
-
-<img src="./whyyyyyy.png" width=400 alt="whyyyyyy">
-
-<br>
-<img src="https://i.kym-cdn.com/entries/icons/facebook/000/046/214/i_pretend_i_do_not_see_it.jpg" width=400 alt="I pretend I do not see it">
+Final stretch! GOGOGO!!
 
 
-tample
-```bash
-cd /sources/
+## 8.0 Chapter 8 Setup
 
-time {
-tar xf PACKAGE-*.tar.xz
-cd PACKAGE-*/
-
-# Installation here
-
-}
-cd /sources/
-rm -rf PACKAGE-*/
-```
-
-
-## 8.0 Entering chroot environment
+## 8.0.S Entering chroot environment
 #### Run as `root`
+Set `$LFS` variable
+```bash
+export LFS=/mnt/lfs
+```
 Check `$LFS` variable (make sure OK)
 ```bash
 echo "===== ======="
@@ -36,7 +21,6 @@ else
   echo ERROR: There is no LFS directory === ERROR ===
 fi
 ```
-
 Mount virtual file systems and enter chroot environment
 ```bash
 mkdir -pv $LFS/{dev,proc,sys,run}
@@ -60,3 +44,13 @@ chroot "$LFS" /usr/bin/env -i   \
     PATH=/usr/bin:/usr/sbin     \
     /bin/bash --login
 ```
+
+## 8.0.E Exiting chroot environment
+When you want to exit just do this
+```bash
+exit
+```
+
+## 8.0.X Pre-flight Checks
+Make sure you are in
+`(lfs chroot) root:/sources# |`

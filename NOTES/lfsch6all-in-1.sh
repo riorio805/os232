@@ -3,7 +3,7 @@
 # Just CTRL+A, CTRL+C, CTRL+V, or bash it
 # Output time will be total time for all scripts
 # Approximate time required: 16.6 SBU
-cd $LFS/sources/
+pushd $LFS/sources/
 
 time {
 for i in {m4,ncurses,bash,coreutils,diffutils,file,findutils,gawk,grep,gzip,make,patch,sed,tar,xz,binutils,gcc}; do
@@ -207,3 +207,5 @@ for i in {m4,ncurses,bash,coreutils,diffutils,file,findutils,gawk,grep,gzip,make
     rm -rf $LFS/sources/$i-*/
 done
 }
+
+popd

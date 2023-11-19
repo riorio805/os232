@@ -42,3 +42,11 @@ git sparse-checkout set --no-cone TXT
 git pull origin master
 ```
 Note that `git sparse-checkout` is currently experimental, and may behave unexpectedly with other git commands.
+
+
+---
+Etc:
+
+5. [List of emojis supported by Github's markdown](https://gist.github.com/rxaviers/7360908)
+
+See title. :palm_tree:

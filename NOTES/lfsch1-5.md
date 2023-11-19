@@ -118,6 +118,12 @@ export LFS LC_ALL LFS_TGT PATH CONFIG_SITE
 EOF
 ```
 
+#### Run as `root`
+Move .bashrc out of the way
+```bash
+[ ! -e /etc/bash.bashrc ] || mv -v /etc/bash.bashrc /etc/bash.bashrc.NOUSE
+```
+
 Ensure the environment is fully prepared\
 Force the bash shell to read the new user profile
 ```bash
@@ -125,12 +131,11 @@ source ~/.bash_profile
 ```
 
 ## CHAPTER 5: Compiling a Cross-Toolchain
-NOTE: This section is available with logging enabled [here](./le_fisch_5_with_log.md).
+NOTE: This section is available with logging enabled [here](./le_fisch_5_with_log.md).\
 
 ### Binutils install (Pass 1)
 #### Run as `lfs`
 Approximate time required: 1 SBU\
-(~1m8s on mine)
 ```bash
 cd $LFS/sources/
 
@@ -203,7 +208,7 @@ cd       build
     --disable-libvtv          \
     --disable-libstdcxx       \
     --enable-languages=c,c++;
-make;
+make ;
 make install;
 }
 
@@ -266,9 +271,8 @@ echo "rootsbindir=/usr/sbin" > configparms
     --enable-kernel=4.14               \
     --with-headers=$LFS/usr/include    \
     libc_cv_slibdir=/usr/lib;
-# compile and install
-make;
-make DESTDIR=$LFS install;
+make -j4;
+make -j4 DESTDIR=$LFS install;
 }
 
 sed '/RTLDLIST=/s@/usr@@g' -i $LFS/usr/bin/ldd
