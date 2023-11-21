@@ -10,18 +10,18 @@ for i in gettext bison perl Python texinfo util-linux; do
     tar xfv $i-*.tar.*
 done
 
-cd gettext-*/
+cd /sources/gettext-*/
 ./configure --disable-shared
 make
 cp -v gettext-tools/src/{msgfmt,msgmerge,xgettext} /usr/bin
 
-cd bison-*/
+cd /sources/bison-*/
 ./configure --prefix=/usr \
         --docdir=/usr/share/doc/bison-3.8.2;
 make
 make install
 
-cd perl-*/
+cd /sources/perl-*/
 sh Configure -des                                        \
             -Dprefix=/usr                               \
             -Dvendorprefix=/usr                         \
@@ -35,19 +35,19 @@ sh Configure -des                                        \
 make
 make install
 
-cd Python-*/
+cd /sources/Python-*/
 ./configure --prefix=/usr   \
         --enable-shared \
         --without-ensurepip
 make
 make install
 
-cd texinfo-*/
+cd /sources/texinfo-*/
 ./configure --prefix=/usr
 make
 make install
 
-cd util-linux-*/
+cd /sources/util-linux-*/
 mkdir -pv /var/lib/hwclock
 ./configure ADJTIME_PATH=/var/lib/hwclock/adjtime    \
         --libdir=/usr/lib    \
