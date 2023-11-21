@@ -2,7 +2,7 @@
 # IMPORTANT: Run this script in `chroot` environment
 # Just CTRL+A, CTRL+C, CTRL+V
 # Output time will be total time for all scripts
-# Approximate time required: 16.6 SBU
+# Approximate time required: x.x SBU
 cd /sources/
 
 time {
@@ -18,8 +18,8 @@ cp -v gettext-tools/src/{msgfmt,msgmerge,xgettext} /usr/bin
 cd bison-*/
 ./configure --prefix=/usr \
         --docdir=/usr/share/doc/bison-3.8.2;
-make;
-make install;
+make
+make install
 
 cd perl-*/
 sh Configure -des                                        \
@@ -31,9 +31,9 @@ sh Configure -des                                        \
             -Dsitelib=/usr/lib/perl5/5.38/site_perl     \
             -Dsitearch=/usr/lib/perl5/5.38/site_perl    \
             -Dvendorlib=/usr/lib/perl5/5.38/vendor_perl \
-            -Dvendorarch=/usr/lib/perl5/5.38/vendor_perl;
-make;
-make install;
+            -Dvendorarch=/usr/lib/perl5/5.38/vendor_perl
+make
+make install
 
 cd Python-*/
 ./configure --prefix=/usr   \
@@ -66,7 +66,7 @@ make
 make install
 
 cd /sources/
-for i in {m4,ncurses,bash,coreutils,diffutils,file,findutils,gawk,grep,gzip,make,patch,sed,tar,xz,binutils,gcc}; do
+for i in gettext bison perl Python texinfo util-linux; do
     rm -rf $LFS/sources/$i-*/
 done
 }

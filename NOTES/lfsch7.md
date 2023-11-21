@@ -15,19 +15,14 @@ Set `$LFS` variable
 ```bash
 export LFS=/mnt/lfs
 ```
-Check `$LFS` variable (make sure OK)
+Set `MAKEFLAGS` variable
 ```bash
-echo "===== ======="
-echo "Check $LFS..."
-if   [ -z $LFS  ] ; then 
-  echo ERROR: There is no LFS variable  === ERROR ===
-elif [ -d $LFS/ ] ; then
-  echo === === === === === === ===  LFS is $LFS/ === OK ===
-else
-  echo ERROR: There is no LFS directory === ERROR ===
-fi
+export MAKEFLAGS='-j4'
 ```
-
+Check your “LFS”, “ARCH”, “NPROC”, and “MAKEFLAGS” environment variables
+```bash
+echo "LFS=\"$LFS $(df $LFS|tail -1|awk '{print $1,int($2/1000000)"G"}')\" ARCH $(arch) NPROC=$(nproc) MAKEFLAGS=$MAKEFLAGS"
+```
 
 ---
 ## 7.2-7.4 All in one
@@ -68,9 +63,8 @@ chroot "$LFS" /usr/bin/env -i   \
     /bin/bash --login
 ```
 If you see this (first time `chroot`) => success!
-```
+
 `(lfs chroot) I have no name!:/# `
-```
 
 
 ---
@@ -93,7 +87,11 @@ ln -sfv /run/lock /var/lock
 
 install -dv -m 0750 /root
 install -dv -m 1777 /tmp /var/tmp
+```
 
+Make sure `/usr/lib64` directory does not exist
+to comply with [Filesystem Hierarchy Standard (FHS)](https://refspecs.linuxfoundation.org/fhs.shtml)\
+```bash
 rm -rf /usr/lib64/
 ```
 
@@ -156,10 +154,12 @@ chmod -v 664  /var/log/lastlog
 chmod -v 600  /var/log/btmp
 ```
 
+
 ## 7.7 - 7.12 All in one copy-paste (OPTIONAL, RECOMMENDED)
-[Script here as a text file](lfsch7allpackage.txt)
-Just copy and paste the script.
+[Script here as a text file](lfsch7allpackage.txt)\
+Just copy and paste the script.\
 Then skip to [Section 7.13](#713-cleaning-up-and-saving-the-temporary-system)
+
 
 ---
 ## 7.7 Gettext install
@@ -211,7 +211,6 @@ cd /sources/
 time {
 tar xf perl-*.tar.xz
 cd perl-*/
-
 
 sh Configure -des                                        \
             -Dprefix=/usr                               \

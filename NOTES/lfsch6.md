@@ -29,6 +29,11 @@ else
   echo ERROR: There is no LFS directory === ERROR ===
 fi
 ```
+Check your “LFS”, “ARCH”, “NPROC”, and “MAKEFLAGS” environment variables
+```bash
+echo "LFS=\"$LFS $(df $LFS|tail -1|awk '{print $1,int($2/1000000)"G"}')\" ARCH $(arch) NPROC=$(nproc) MAKEFLAGS=$MAKEFLAGS"
+```
+
 
 ### 6.0.P Copy-paste mania
 This chapter but all in one [here (text file)](./lfsch6all-in-1.txt)\
@@ -52,9 +57,9 @@ cd m4-*/
 # Installation here
 ./configure --prefix=/usr\
             --host=$LFS_TGT\
-            --build=$(build-aux/config.guess);
-make;
-make DESTDIR=$LFS install;
+            --build=$(build-aux/config.guess)
+make
+make DESTDIR=$LFS install
 }
 
 cd $LFS/sources/
@@ -72,7 +77,7 @@ time {
 tar xf ncurses-*.tar.gz
 cd ncurses-*/
 
-# Check gawk exists (output nothing)
+# Check gawk first
 sed -i s/mawk// configure
 
 mkdir build
@@ -93,12 +98,11 @@ popd
             --without-debug              \
             --without-ada                \
             --disable-stripping          \
-            --enable-widec;
-make;
-make DESTDIR=$LFS TIC_PATH=$(pwd)/build/progs/tic install;
-}
-
+            --enable-widec
+make
+make DESTDIR=$LFS TIC_PATH=$(pwd)/build/progs/tic install
 echo "INPUT(-lncursesw)" > $LFS/usr/lib/libncurses.so
+}
 
 cd $LFS/sources/
 rm -rf ncurses-*/
@@ -119,9 +123,9 @@ cd bash-*/
 ./configure --prefix=/usr                      \
         --build=$(sh support/config.guess) \
         --host=$LFS_TGT                    \
-        --without-bash-malloc;
-make;
-make DESTDIR=$LFS install;
+        --without-bash-malloc
+make
+make DESTDIR=$LFS install
 }
 
 ln -sv bash $LFS/bin/sh
@@ -148,9 +152,9 @@ cd coreutils-*/
             --build=$(build-aux/config.guess) \
             --enable-install-program=hostname \
             --enable-no-install-program=kill,uptime \
-            gl_cv_macro_MB_CUR_MAX_good=y;
-make;
-make DESTDIR=$LFS install;
+            gl_cv_macro_MB_CUR_MAX_good=y
+make
+make DESTDIR=$LFS install
 }
 
 mv -v $LFS/usr/bin/chroot              $LFS/usr/sbin
@@ -176,9 +180,9 @@ cd diffutils-*/
 
 ./configure --prefix=/usr   \
         --host=$LFS_TGT \
-        --build=$(./build-aux/config.guess);
-make;
-make DESTDIR=$LFS install;
+        --build=$(./build-aux/config.guess)
+make
+make DESTDIR=$LFS install
 }
 
 cd $LFS/sources/
@@ -197,16 +201,16 @@ cd file-*/
 
 # Installation here
 mkdir build
-pushd build;
+pushd build
   ../configure --disable-bzlib      \
                --disable-libseccomp \
                --disable-xzlib      \
-               --disable-zlib;
-  make;
-popd;
-./configure --prefix=/usr --host=$LFS_TGT --build=$(./config.guess);
-make FILE_COMPILE=$(pwd)/build/src/file;
-make DESTDIR=$LFS install;
+               --disable-zlib
+  make
+popd
+./configure --prefix=/usr --host=$LFS_TGT --build=$(./config.guess)
+make FILE_COMPILE=$(pwd)/build/src/file
+make DESTDIR=$LFS install
 
 }
 
@@ -231,9 +235,9 @@ cd findutils-*/
 ./configure --prefix=/usr                   \
         --localstatedir=/var/lib/locate \
         --host=$LFS_TGT                 \
-        --build=$(build-aux/config.guess);
-make;
-make DESTDIR=$LFS install;
+        --build=$(build-aux/config.guess)
+make
+make DESTDIR=$LFS install
 }
 
 cd $LFS/sources/
@@ -255,9 +259,9 @@ sed -i 's/extras//' Makefile.in
 # Installation here
 ./configure --prefix=/usr   \
             --host=$LFS_TGT \
-            --build=$(build-aux/config.guess);
-make;
-make DESTDIR=$LFS install;
+            --build=$(build-aux/config.guess)
+make
+make DESTDIR=$LFS install
 }
 
 cd $LFS/sources/
@@ -276,11 +280,11 @@ cd grep-*/
 
 # Installation here
 
-    ./configure --prefix=/usr   \
-            --host=$LFS_TGT \
-            --build=$(./build-aux/config.guess);
-    make;
-    make DESTDIR=$LFS install;
+./configure --prefix=/usr   \
+        --host=$LFS_TGT \
+        --build=$(./build-aux/config.guess)
+make
+make DESTDIR=$LFS install
 }
 
 cd $LFS/sources/
@@ -298,10 +302,9 @@ tar xf gzip-*.tar.xz
 cd gzip-*/
 
 # Installation here
-
-    ./configure --prefix=/usr --host=$LFS_TGT;
-    make;
-    make DESTDIR=$LFS install;
+./configure --prefix=/usr --host=$LFS_TGT
+make
+make DESTDIR=$LFS install
 }
 
 cd $LFS/sources/
@@ -319,13 +322,12 @@ tar xf make-*.tar.gz
 cd make-*/
 
 # Installation here
-
-    ./configure --prefix=/usr   \
-            --without-guile \
-            --host=$LFS_TGT \
-            --build=$(build-aux/config.guess);
-    make;
-    make DESTDIR=$LFS install;
+./configure --prefix=/usr   \
+        --without-guile \
+        --host=$LFS_TGT \
+        --build=$(build-aux/config.guess)
+make
+make DESTDIR=$LFS install
 }
 
 
@@ -344,12 +346,11 @@ tar xf patch-*.tar.xz
 cd patch-*/
 
 # Installation here
-
-    ./configure --prefix=/usr   \
-            --host=$LFS_TGT \
-            --build=$(build-aux/config.guess);
-    make;
-    make DESTDIR=$LFS install;
+./configure --prefix=/usr   \
+        --host=$LFS_TGT \
+        --build=$(build-aux/config.guess)
+make
+make DESTDIR=$LFS install
 }
 
 cd $LFS/sources/
@@ -367,12 +368,11 @@ tar xf sed-*.tar.xz
 cd sed-*/
 
 # Installation here
-
-    ./configure --prefix=/usr   \
-            --host=$LFS_TGT \
-            --build=$(./build-aux/config.guess);
-    make;
-    make DESTDIR=$LFS install;
+./configure --prefix=/usr   \
+        --host=$LFS_TGT \
+        --build=$(./build-aux/config.guess)
+make
+make DESTDIR=$LFS install
 }
 
 cd $LFS/sources/
@@ -390,12 +390,11 @@ tar xf tar-*.tar.xz
 cd tar-*/
 
 # Installation here
-
-    ./configure --prefix=/usr   \
-            --host=$LFS_TGT \
-            --build=$(build-aux/config.guess);
-    make;
-    make DESTDIR=$LFS install;
+./configure --prefix=/usr   \
+        --host=$LFS_TGT \
+        --build=$(build-aux/config.guess)
+make
+make DESTDIR=$LFS install
 }
 
 cd $LFS/sources/
@@ -413,14 +412,13 @@ tar xf xz-*.tar.xz
 cd xz-*/
 
 # Installation here
-
-    ./configure --prefix=/usr                 \
-            --host=$LFS_TGT                   \
-            --build=$(build-aux/config.guess) \
-            --disable-static                  \
-            --docdir=/usr/share/doc/xz-5.44;
-    make;
-    make DESTDIR=$LFS install;
+./configure --prefix=/usr                 \
+        --host=$LFS_TGT                   \
+        --build=$(build-aux/config.guess) \
+        --disable-static                  \
+        --docdir=/usr/share/doc/xz-5.44
+make
+make DESTDIR=$LFS install
 }
 
 rm -v $LFS/usr/lib/liblzma.la
@@ -446,18 +444,17 @@ sed '6009s/$add_dir//' -i ltmain.sh
 mkdir -v build
 cd       build
 
-
-    ../configure                   \
-        --prefix=/usr              \
-        --build=$(../config.guess) \
-        --host=$LFS_TGT            \
-        --disable-nls              \
-        --enable-shared            \
-        --enable-gprofng=no        \
-        --disable-werror           \
-        --enable-64-bit-bfd;
-    make;
-    make DESTDIR=$LFS install;
+../configure                   \
+    --prefix=/usr              \
+    --build=$(../config.guess) \
+    --host=$LFS_TGT            \
+    --disable-nls              \
+    --enable-shared            \
+    --enable-gprofng=no        \
+    --disable-werror           \
+    --enable-64-bit-bfd
+make
+make DESTDIR=$LFS install
 }
 
 # Remove the libtool archive files
@@ -516,9 +513,9 @@ cd       build
     --disable-libsanitizer                         \
     --disable-libssp                               \
     --disable-libvtv                               \
-    --enable-languages=c,c++;
-make;
-make DESTDIR=$LFS install;
+    --enable-languages=c,c++
+make
+make DESTDIR=$LFS install
 }
 
 ln -sv gcc $LFS/usr/bin/cc

@@ -5,7 +5,7 @@ these are my timings for builds / compiles / installs
 | Package | Time in seconds<br>(approx.) | Time in SBU<br>(approx.) |
 |-|-:|-:|
 | binutils-pass1 |   67.992 |     1 |
-| gcc-pass1      |  712.228 | 10.48 |
+| gcc-pass1      |  551.705 | 10.48 |
 | linux-api      |   28.946 |  0.43 |
 | glibc          |   262.92 |  3.87 |
 | libstdc++      |   53.561 |  0.79 |
@@ -31,10 +31,10 @@ these are my timings for builds / compiles / installs
 | tar              |   34.875 |  0.51 |
 | xz               |    19.36 |  0.28 |
 | binutils-pass2   |   84.509 |  1.24 |
-| gcc-pass2        |  871.719 | 13.33 |
+| gcc-pass2        |  871.719 | 12.82 |
 |
 | One-by-one total | 1480.354 | 21.78 |
-| All-in-one       | 1608.706 | 23.66 |
+| All-in-one       | 1250.757 | 18.40 |
 
 ### Chapter 7 install times
 | Package | Time in seconds<br>(approx.) | Time in SBU<br>(approx.) |
