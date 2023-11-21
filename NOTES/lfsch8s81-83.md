@@ -54,3 +54,26 @@ exit
 ## 8.0.X Pre-flight Checks
 Make sure you are in
 `(lfs chroot) root:/sources# |`
+
+## 8.0.B Backup
+Leave the chroot environment to get to root\
+NOTE: you may need to exit multiple times to get to actual root
+```bash
+exit
+```
+Unmount the virtual file system
+```bash
+mountpoint -q $LFS/dev/shm && umount $LFS/dev/shm
+umount $LFS/dev/pts
+umount $LFS/{sys,proc,run,dev}
+```
+
+Create the backup\
+Approximate time required: 6.1 SBU
+```bash
+cd $LFS
+time {
+    tar -cJpvf $HOME/lfs-temp-tools-12.0.tar.xz .;
+}
+cd
+```

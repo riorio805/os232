@@ -1,8 +1,9 @@
 [<- Back](.)
 
 #### Preface:
-again, hopefully this works lol good luck\
 chapter 6 is in it's own file [here](./lfsch6.md)
+
+again, hopefully this works lol good luck
 
 
 # CHAPTER 7: Entering Chroot and Building Additional Temporary Tools
@@ -29,22 +30,21 @@ fi
 
 
 ---
-## 7.2 Changing Ownership
+## 7.2-7.4 All in one
+7.2 Changing Ownership\
+7.3 Preparing Virtual Kernel File Systems\
+7.4 Entering the Chroot Environment
+
 #### Run as `root`
-Change `$LFS/*` ownership from `lfs` to `root`
 ```bash
+echo "= (7.2) ======================================";
+echo "Change \$LFS/* ownership from lfs to root"
 chown -R root:root $LFS/{usr,lib,var,etc,bin,sbin,tools}
 case $(uname -m) in
   x86_64) chown -R root:root $LFS/lib64 ;;
 esac
-```
-
-
----
-## 7.3 Preparing Virtual Kernel File Systems
-#### Run as `root`
-Mount virtual file systems
-```bash
+echo "= (7.3) ======================================"
+echo "Mount virtual filesystem"
 mkdir -pv $LFS/{dev,proc,sys,run}
 
 mount -v --bind /dev $LFS/dev
@@ -58,14 +58,8 @@ if [ -h $LFS/dev/shm ]; then
 else
   mount -t tmpfs -o nosuid,nodev tmpfs $LFS/dev/shm
 fi
-```
-
-
----
-## 7.4 Entering the Chroot Environment
-#### Run as `root`
-Its time to enter the matrix
-```bash
+echo "= (7.4) ======================================";
+echo "Enter the matrix (chroot)"
 chroot "$LFS" /usr/bin/env -i   \
     HOME=/root                  \
     TERM="$TERM"                \
@@ -73,7 +67,10 @@ chroot "$LFS" /usr/bin/env -i   \
     PATH=/usr/bin:/usr/sbin     \
     /bin/bash --login
 ```
+If you see this (first time `chroot`) => success!
+```
 `(lfs chroot) I have no name!:/# `
+```
 
 
 ---
@@ -163,6 +160,10 @@ chmod -v 664  /var/log/lastlog
 chmod -v 600  /var/log/btmp
 ```
 
+## 7.7 - 7.12 All in one copy-paste (OPTIONAL, RECOMMENDED)
+[Script here](lfsch7allpackage.sh)
+Just copy and paste the script.
+Then skip to [Section 7.13](#713-cleaning-up-and-saving-the-temporary-system)
 
 ---
 ## 7.7 Gettext install
@@ -170,14 +171,13 @@ Approximate time required: 1.55 SBU
 ```bash
 cd /sources/
 
+time {
 tar xf gettext-*.tar.xz
 cd gettext-*/
 
-# Installation here
-time {
-    ./configure --disable-shared;
-    make;
-    cp -v gettext-tools/src/{msgfmt,msgmerge,xgettext} /usr/bin;
+./configure --disable-shared
+make
+cp -v gettext-tools/src/{msgfmt,msgmerge,xgettext} /usr/bin
 }
 
 cd /sources/
@@ -195,11 +195,10 @@ time {
 tar xf bison-*.tar.xz
 cd bison-*/
 
-# Installation here
 ./configure --prefix=/usr \
-        --docdir=/usr/share/doc/bison-3.8.2;
-make;
-make install;
+        --docdir=/usr/share/doc/bison-3.8.2
+make
+make install
 }
 
 cd /sources/
@@ -217,7 +216,7 @@ time {
 tar xf perl-*.tar.xz
 cd perl-*/
 
-# Installation here
+
 sh Configure -des                                        \
             -Dprefix=/usr                               \
             -Dvendorprefix=/usr                         \
@@ -227,9 +226,9 @@ sh Configure -des                                        \
             -Dsitelib=/usr/lib/perl5/5.38/site_perl     \
             -Dsitearch=/usr/lib/perl5/5.38/site_perl    \
             -Dvendorlib=/usr/lib/perl5/5.38/vendor_perl \
-            -Dvendorarch=/usr/lib/perl5/5.38/vendor_perl;
-make;
-make install;
+            -Dvendorarch=/usr/lib/perl5/5.38/vendor_perl
+make
+make install
 }
 
 cd /sources/
@@ -249,12 +248,11 @@ time {
 tar xf Python-*.tar.xz
 cd Python-*/
 
-# Installation here
 ./configure --prefix=/usr   \
         --enable-shared \
-        --without-ensurepip;
-make;
-make install;
+        --without-ensurepip
+make
+make install
 }
 
 cd /sources/
@@ -272,10 +270,9 @@ time {
 tar xf texinfo-*.tar.xz
 cd texinfo-*/
 
-# Installation here
-./configure --prefix=/usr;
-make;
-make install;
+./configure --prefix=/usr
+make
+make install
 }
 
 cd /sources/
@@ -293,10 +290,7 @@ time {
 tar xf util-linux-*.tar.xz
 cd util-linux-*/
 
-# Installation here
 mkdir -pv /var/lib/hwclock
-
-
 ./configure ADJTIME_PATH=/var/lib/hwclock/adjtime    \
         --libdir=/usr/lib    \
         --runstatedir=/run   \
@@ -309,9 +303,9 @@ mkdir -pv /var/lib/hwclock
         --disable-runuser    \
         --disable-pylibmount \
         --disable-static     \
-        --without-python;
-make;
-make install;
+        --without-python
+make
+make install
 }
 
 cd /sources/
@@ -325,13 +319,18 @@ rm -rf util-linux-*/
 ## 7.13.1 Cleaning
 Do some cleaning to save ~1.1GB
 ```bash
+# remove documentation (35MB)
 rm -rf /usr/share/{info,man,doc}/*
 find /usr/{lib,libexec} -name \*.la -delete
+# remove cross toolchain (>1GB)
 rm -rf /tools
 ```
 
 
-## 7.13.2 Backup (OPTIONAL BUT RECOMMENDED)
+## 7.13.2 Backup
+~~(OPTIONAL BUT RECOMMENDED)~~
+**NEVERMIND IT IS REQUIRED FOR ASSIGNMENT PLEASE BACKUP**
+
 > "Real Computer Science Students Do BACKUP! Prove that you are a genuine (ORI) Computer Science student and not just an observer of Java language studies or a no-level Python zoologist."
 > \-RMS 12 october 2023
 
@@ -351,10 +350,7 @@ Create the backup\
 Approximate time required: 6.1 SBU
 ```bash
 cd $LFS
-time {
-    tar -cJpvf $HOME/lfs-temp-tools-12.0.tar.xz .;
-}
-cd
+time { tar -cJpvf $HOME/lfs-temp-tools-12.0.tar.xz .; }
 ```
 
 ## 7.13.3 Restoring the backup
@@ -381,7 +377,7 @@ tar -xpf $HOME/lfs-temp-tools-12.0.tar.xz
 ```
 
 
-## 7.13.E Reentering chroot environment
+## 7.13.S Reentering chroot environment
 Before continuing to chapter 8
 
 Mount virtual file systems and enter chroot environment
@@ -407,4 +403,27 @@ chroot "$LFS" /usr/bin/env -i   \
     PS1='(lfs chroot) \u:\w\$ ' \
     PATH=/usr/bin:/usr/sbin     \
     /bin/bash --login
+```
+
+
+# FINISHING: Generate report
+
+## F.1 Move backup to /var/tmp
+#### Run as `root`
+```bash
+mv -v $HOME/lfs-temp-tools-12.0.tar.xz /var/tmp/
+du -s -h /var/tmp/lfs-temp-tools-12.0.tar.xz
+```
+Check `lfs-temp-tools-12.0.tar.xz` is larger than 800MB => OK
+> Don’t delete the lfs-temp-tools-12.0.tar.xz file until the end of the term.
+If prompted, you should be able to show that file.
+
+
+## F.2 Run bash script
+#### Run as `user`
+```bash
+cd $HOME/mywork/WEEK09/
+bash 09-WEEK09.sh
+cd $HOME/RESULT/W09/
+ls -al
 ```

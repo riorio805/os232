@@ -60,6 +60,28 @@ exit
 Make sure you are in
 `(lfs chroot) root:/sources# |`
 
+## 8.0.B Backup
+Leave the chroot environment to get to root\
+NOTE: you may need to exit multiple times to get to actual root
+```bash
+exit
+```
+Unmount the virtual file system
+```bash
+mountpoint -q $LFS/dev/shm && umount $LFS/dev/shm
+umount $LFS/dev/pts
+umount $LFS/{sys,proc,run,dev}
+```
+
+Create the backup\
+Approximate time required: 6.1 SBU
+```bash
+cd $LFS
+time {
+    tar -cJpvf $HOME/lfs-temp-tools-12.0.tar.xz .;
+}
+cd
+```
 
 
 ---
@@ -131,12 +153,12 @@ make check;
 ```
 Check last output for test results.
 >A few failures out of over 5000 tests can generally be ignored.\
-Examples:\
+Common failures:\
 -> io/tst-lchmod\
 -> stdlib/tst-arc4random-thread
 
 ### 8.5.2 Install and configure
-Install and configure\
+Install and configure locales\
 Approximate time required: x SBU
 ```bash
 time { 
@@ -187,8 +209,12 @@ localedef -i zh_TW -f UTF-8 zh_TW.UTF-8
 # INDONESIA NUMBA WAAAAAAAAAN
 localedef -i id_ID -f ISO-8859-1 id_ID
 localedef -i id_ID -f UTF-8 id_ID.UTF-8
+}
+```
 
-
+Configure timezone\
+Approximate time required: x SBU
+```bash
 cat > /etc/nsswitch.conf << "EOF"
 # Begin /etc/nsswitch.conf
 
@@ -238,7 +264,6 @@ include /etc/ld.so.conf.d/*.conf
 
 EOF
 mkdir -pv /etc/ld.so.conf.d
-}
 
 
 cd /sources/

@@ -1,6 +1,12 @@
+[<- Back](.)
+
 #### Preface:
-again, hopefully this works lol good luck\
-chapter 7 is in it's own page [here](./lfsch7.md)\
+chapter 7 is in it's own page [here](./lfsch7.md)
+
+again, hopefully this works lol good luck
+
+I recommend you just run the all-in-one script because no checking is required
+
 
 # CHAPTER 6: Cross Compiling Temporary Tools
 #### Run every script as `lfs`
@@ -24,8 +30,8 @@ else
 fi
 ```
 
-### 6.0.P Copy-paste only
-This chapter but all in one [here](./lfsch6all-in-1.sh)\
+### 6.0.P Copy-paste mania
+This chapter but all in one [here](./lfsch6all-in-1.txt)\
 Or use this script (run as `lfs`)
 ```bash
 cd
