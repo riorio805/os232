@@ -88,7 +88,7 @@ Some performance tips to hop
 ### 8.27P.A Check for multicore usage
 Using a different user logged in to the same host, run `top` and press `1`\
 On the top, it will show CPU usage for each of the cores\
-Make sure all cores are running.\
+Make sure all cores are running (see value of us != 0.0).\
 If not, either run
 ```bash
 export MAKEFLAGS='-j4'

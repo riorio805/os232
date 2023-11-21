@@ -31,7 +31,7 @@ fi
 ```
 
 ### 6.0.P Copy-paste mania
-This chapter but all in one [here](./lfsch6all-in-1.txt)\
+This chapter but all in one [here (text file)](./lfsch6all-in-1.txt)\
 Or use this script (run as `lfs`)
 ```bash
 cd

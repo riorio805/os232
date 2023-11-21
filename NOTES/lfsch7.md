@@ -161,7 +161,7 @@ chmod -v 600  /var/log/btmp
 ```
 
 ## 7.7 - 7.12 All in one copy-paste (OPTIONAL, RECOMMENDED)
-[Script here](lfsch7allpackage.sh)
+[Script here as a text file](lfsch7allpackage.txt)
 Just copy and paste the script.
 Then skip to [Section 7.13](#713-cleaning-up-and-saving-the-temporary-system)
 
