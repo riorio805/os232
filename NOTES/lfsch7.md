@@ -93,11 +93,7 @@ ln -sfv /run/lock /var/lock
 
 install -dv -m 0750 /root
 install -dv -m 1777 /tmp /var/tmp
-```
 
-Make sure `/usr/lib64` directory does not exist
-to comply with [Filesystem Hierarchy Standard (FHS)](https://refspecs.linuxfoundation.org/fhs.shtml)
-```bash
 rm -rf /usr/lib64/
 ```
 

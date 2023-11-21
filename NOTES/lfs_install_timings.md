@@ -31,7 +31,7 @@ these are my timings for builds / compiles / installs
 | tar              |   34.875 |  0.51 |
 | xz               |    19.36 |  0.28 |
 | binutils-pass2   |   84.509 |  1.24 |
-| gcc-pass2        |  906.267 | 13.33 |
+| gcc-pass2        |  871.719 | 13.33 |
 |
 | One-by-one total | 1480.354 | 21.78 |
 | All-in-one       | 1608.706 | 23.66 |
