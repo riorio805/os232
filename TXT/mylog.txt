@@ -104,3 +104,7 @@ ZCZC W08 30 L07 Running Week05 demo files
 ZCZC W08 45 L06 Study
 ZCZC W08 15 L05 Weekly quiz
 ZCZC W08 15 L41 Total time writing TXT/mylog.txt
+
+
+# Week 9
+ZCZC W09 200 L00 this week
