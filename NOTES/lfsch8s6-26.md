@@ -5,25 +5,27 @@ Definitely bug free and tested under production standards :))))))
 
 ## 8.0 Chapter 8 Setup
 
-## 8.0.S Entering chroot environment
+### 8.0.S Entering chroot environment
 #### Run as `root`
-Set `$LFS` variable
+Check mounted or not
 ```bash
-export LFS=/mnt/lfs
+findmnt | grep $LFS
 ```
-Check `$LFS` variable (make sure OK)
-```bash
-echo "===== ======="
-echo "Check $LFS..."
-if   [ -z $LFS  ] ; then 
-  echo ERROR: There is no LFS variable  === ERROR ===
-elif [ -d $LFS/ ] ; then
-  echo === === === === === === ===  LFS is $LFS/ === OK ===
-else
-  echo ERROR: There is no LFS directory === ERROR ===
-fi
+Output if LFS **IS MOUNTED**:
 ```
-Mount virtual file systems and enter chroot environment
+├─/mnt/lfs                                              /dev/sdb2   ext4        rw,relatime
+│ ├─/mnt/lfs/dev                                        udev        devtmpfs    rw,nosuid,relatime,size=1981744k,nr_inodes=495436,mode=755,inode64
+│ │ ├─/mnt/lfs/dev/pts                                  devpts      devpts      rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000
+│ │ └─/mnt/lfs/dev/shm                                  tmpfs       tmpfs       rw,nosuid,nodev,relatime,inode64
+│ ├─/mnt/lfs/proc                                       proc        proc        rw,relatime
+│ ├─/mnt/lfs/sys                                        sysfs       sysfs       rw,relatime
+│ └─/mnt/lfs/run                                        tmpfs       tmpfs       rw,relatime,inode64
+```
+Output if LFS **IS NOT MOUNTED**:
+```
+├─/mnt/lfs                                              /dev/sdb2   ext4        rw,relatime
+```
+Mount virtual filesystem if not mounted
 ```bash
 mkdir -pv $LFS/{dev,proc,sys,run}
 
@@ -38,7 +40,9 @@ if [ -h $LFS/dev/shm ]; then
 else
   mount -t tmpfs -o nosuid,nodev tmpfs $LFS/dev/shm
 fi
-
+```
+Enter chroot environment
+```bash
 chroot "$LFS" /usr/bin/env -i   \
     HOME=/root                  \
     TERM="$TERM"                \
@@ -47,45 +51,40 @@ chroot "$LFS" /usr/bin/env -i   \
     /bin/bash --login
 ```
 
-## 8.0.E Exiting chroot environment
+
+### 8.0.E Exiting chroot environment
 When you want to exit just do this
 ```bash
 exit
 ```
 
-## 8.0.X Pre-flight Checks
+### 8.0.X Pre-flight Checks
 Make sure you are in
-`(lfs chroot) root:/sources# |`
+`(lfs chroot) root:/# |`\
+Create `version-check.sh` (See [Section 7.12T](./lfsch7.md#712t-test-installations) on creating `version-check.sh`)
 
-## 8.0.B Backup
-Leave the chroot environment to get to root\
-NOTE: you may need to exit multiple times to get to actual root
+Run `version-check.sh` to see version requirements(Make sure all is OK)
 ```bash
-exit
-```
-Unmount the virtual file system
-```bash
-mountpoint -q $LFS/dev/shm && umount $LFS/dev/shm
-umount $LFS/dev/pts
-umount $LFS/{sys,proc,run,dev}
+bash version-check.sh
 ```
 
-Create the backup\
-Approximate time required: 6.1 SBU
+Check your “NPROC”, and “MAKEFLAGS” environment variables
 ```bash
-cd $LFS
-time {
-    tar -cJpvf $HOME/lfs-temp-tools-12.0.tar.xz .;
-}
-cd
+echo "NPROC=$(nproc) MAKEFLAGS=$MAKEFLAGS"
 ```
+Set `MAKEFLAGS` variable
+```bash
+export MAKEFLAGS='-j4'
+```
+
+### 8.0.B Backup
+See [Section 7.13.2](./lfsch7.md#7132-backup) on backing up the LFS system.
 
 
 ---
-
 ## 8.6 Zlib install
+Approximate time required: 0.03 SBU
 ### 8.6.1 Compile and check
-Approximate time required: x SBU
 ```bash
 cd /sources/
 
@@ -95,6 +94,7 @@ cd zlib-*/
 
 ./configure --prefix=/usr
 make
+
 make check
 }
 ```
@@ -106,7 +106,6 @@ Expected output of `make check` contains these 3 lines (make sure OK):
 ```
 
 ### 8.6.2 Install
-Approximate time required: x SBU
 ```bash
 time {
 make install
@@ -119,7 +118,7 @@ rm -rf zlib-*/
 
 ---
 ## 8.7 Bzip2 install
-Approximate time required: x SBU
+Approximate time required: 0.05 SBU
 ```bash
 cd /sources/
 
@@ -153,8 +152,8 @@ rm -rf bzip2-*/
 
 ---
 ## 8.8 Xz install
+Approximate time required: 0.33 SBU
 ### 8.8.1 Compile and run tests
-Approximate time required: x SBU
 ```bash
 cd /sources/
 
@@ -166,6 +165,7 @@ cd xz-*/
             --disable-static \
             --docdir=/usr/share/doc/xz-5.4.4
 make
+
 make check
 }
 ```
@@ -184,7 +184,6 @@ Testsuite summary for XZ Utils 5.4.4
 ============================================================================
 ```
 ### 8.8.2 Install
-Approximate time required: x SBU
 ```bash
 time {
 make install
@@ -197,9 +196,9 @@ rm -rf xz-*/
 
 ---
 ## 8.9 Zstd install
-> In the test output there are several places that indicate 'failed'. These are expected and only 'FAIL' is an actual test failure.
+Approximate time required: 1.08 SBU
 
-Approximate time required: x SBU
+> In the test output there are several places that indicate 'failed'. These are expected and only 'FAIL' is an actual test failure.
 ```bash
 cd /sources/
 
@@ -208,7 +207,9 @@ tar xf zstd-*.tar.*
 cd zstd-*/
 
 make prefix=/usr
+
 make check
+
 make prefix=/usr install
 rm -v /usr/lib/libzstd.a
 }
@@ -220,7 +221,7 @@ rm -rf zstd-*/
 
 ---
 ## 8.10 File install
-Approximate time required: x SBU\
+Approximate time required: 0.18 SBU\
 Make sure no errors during installation
 ```bash
 cd /sources/
@@ -231,7 +232,9 @@ cd file-*/
 
 ./configure --prefix=/usr
 make
+
 make check
+
 make install
 }
 
@@ -242,7 +245,7 @@ rm -rf file-*/
 
 ---
 ## 8.11 Readline install
-Approximate time required: x SBU
+Approximate time required: 0.12 SBU
 ```bash
 cd /sources/
 
@@ -270,8 +273,8 @@ rm -rf readline-*/
 
 ---
 ## 8.12 M4 install
+Approximate time required: 0.91 SBU
 ### 8.12.1 Compile and run tests
-Approximate time required: x SBU
 ```bash
 cd /sources/
 
@@ -281,6 +284,7 @@ cd m4-*/
 
 ./configure --prefix=/usr
 make
+
 make check
 }
 ```
@@ -299,7 +303,6 @@ Testsuite summary for GNU M4 1.4.19
 ============================================================================
 ```
 ### 8.12.2 Install
-Approximate time required: x SBU
 ```bash
 time {
 make install
@@ -312,8 +315,8 @@ rm -rf m4-*/
 
 ---
 ## 8.13 Bc install
+Approximate time required: 0.11 SBU
 ### 8.13.1 Compile and run tests
-Approximate time required: x SBU
 ```bash
 cd /sources/
 
@@ -321,9 +324,9 @@ time {
 tar xf bc-*.tar.*
 cd bc-*/
 
-CC=gcc
-./configure --prefix=/usr -G -O3 -r
+CC=gcc ./configure --prefix=/usr -G -O3 -r
 make
+
 make test
 }
 ```
@@ -339,7 +342,6 @@ All bc tests passed.
 Make sure all test passed
 
 ### 8.13.2 Install
-Approximate time required: x SBU
 ```bash
 time {
 make install
@@ -352,8 +354,8 @@ rm -rf bc-*/
 
 ---
 ## 8.14 Flex install
+Approximate time required: 0.35 SBU
 ### 8.14.1 Compile and run tests
-Approximate time required: x SBU
 ```bash
 cd /sources/
 
@@ -366,6 +368,7 @@ cd flex-*/
             --docdir=/usr/share/doc/flex-2.6.4 \
             --disable-static
 make
+
 make check
 }
 ```
@@ -396,14 +399,14 @@ rm -rf flex-*/
 
 ---
 ## 8.15 Tcl install
+Approximate time required: 5.01 SBU
 ### 8.15.1 Compile and run tests
-Approximate time required: x SBU
 ```bash
 cd /sources/
 
 time {
-tar xf tcl-*.tar.*
-cd tcl-*/
+tar xf tcl*-src.tar.*
+cd tcl*/
 
 # Installation here
 SRCDIR=$(pwd)
@@ -485,20 +488,20 @@ cp -v -r  ./html/* /usr/share/doc/tcl-8.6.13
 }
 
 cd /sources/
-rm -rf tcl-*/
+rm -rf tcl*/
 ```
 
 
 ---
 ## 8.16 Expect install
+Approximate time required: 0.34 SBU
 ### 8.16.1 Compile and run tests
-Approximate time required: x SBU
 ```bash
 cd /sources/
 
 time {
-tar xf expect-*.tar.*
-cd expect-*/
+tar xf expect*.tar.*
+cd expect*/
 
 ./configure --prefix=/usr           \
             --with-tcl=/usr/lib     \
@@ -506,24 +509,25 @@ cd expect-*/
             --mandir=/usr/share/man \
             --with-tclinclude=/usr/include
 make
+
 make test
 }
 ```
-Expected summary of `make check`
+Expected summary of `make test`
 ```
 all.tcl:	Total	29	Passed	29	Skipped	0	Failed	0
 Sourced 0 Test Files.
 ```
-If this error message appears:
+If a test fails with error message:
 ```
 The system has no more ptys. Ask your system administrator to create more
 ```
+Do:
 1. [Exit environment](#80e-exiting-chroot-environment)
 2. [Redo Chapter 7.3](./lfsch7.md#73-preparing-virtual-kernel-file-systems)
 3. [Re-enter chroot](#80s-entering-chroot-environment)
 
 ### 8.16.2 Install
-Approximate time required: x SBU
 ```bash
 time {
 make install
@@ -536,8 +540,8 @@ rm -rf expect-*/
 
 ---
 ## 8.17 DejaGNU install
+Approximate time required: 0.15 SBU\
 Compile, install and run tests\
-Approximate time required: x SBU
 ```bash
 cd /sources/
 
@@ -553,6 +557,7 @@ makeinfo --plaintext       -o doc/dejagnu.txt  ../doc/dejagnu.texi
 make install
 install -v -dm755  /usr/share/doc/dejagnu-1.6.3
 install -v -m644   doc/dejagnu.{html,txt} /usr/share/doc/dejagnu-1.6.3
+
 make check
 }
 
@@ -572,8 +577,8 @@ Tcl version	    8.6
 
 ---
 ## 8.18 Binutils install
+Approximate time required: 7.88 SBU
 ### 8.18.1 Compile and run tests
-Approximate time required: x SBU
 ```bash
 cd /sources/
 
@@ -601,9 +606,6 @@ grep '^FAIL:' $(find -name '*.log')
 Expected output of `grep ...`
 after running `make -k check`
 ```
-./gprofng/gprofng.log:FAIL: tmpdir/gp-archive
-./gprofng/gprofng.log:FAIL: tmpdir/gp-collect-app_F
-./gprofng/gprofng.log:FAIL: tmpdir/setpath_map
 ./gold/testsuite/test-suite.log:FAIL: weak_undef_test
 ./gold/testsuite/test-suite.log:FAIL: initpri3a
 ./gold/testsuite/test-suite.log:FAIL: script_test_1
@@ -616,10 +618,12 @@ after running `make -k check`
 ./gold/testsuite/test-suite.log:FAIL: script_test_12i
 ./gold/testsuite/test-suite.log:FAIL: incremental_test_2
 ./gold/testsuite/test-suite.log:FAIL: incremental_test_5
+./gprofng/gprofng.log:FAIL: tmpdir/gp-archive
+./gprofng/gprofng.log:FAIL: tmpdir/gp-collect-app_F
+./gprofng/gprofng.log:FAIL: tmpdir/setpath_map
 ```
 
 ### 8.18.2 Install
-Approximate time required: x SBU
 ```bash
 time {
 make tooldir=/usr install
@@ -632,8 +636,8 @@ rm -rf binutils-*/
 
 ---
 ## 8.19 GMP install
+Approximate time required: 1.1 SBU
 ### 8.19.1 Compile and run tests
-Approximate time required: x SBU
 ```bash
 cd /sources/
 
@@ -647,6 +651,7 @@ cd gmp-*/
             --docdir=/usr/share/doc/gmp-6.3.0
 make
 make html
+
 make check 2>&1 | tee gmp-check-log
 awk '/# PASS:/{total+=$3} ; END{print total}' gmp-check-log
 }
@@ -658,7 +663,6 @@ Expected output of `awk ...`
 ```
 
 ### 8.19.2 Install
-Approximate time required: x SBU
 ```bash
 time {
 make install
@@ -671,8 +675,8 @@ rm -rf gmp-*/
 
 ---
 ## 8.20 MPFR install
+Approximate time required: 0.76 SBU
 ### 8.20.1 Compile and run tests
-Approximate time required: x SBU
 ```bash
 cd /sources/
 
@@ -689,6 +693,7 @@ sed -e 's/+01,234,567/+1,234,567 /' \
             --docdir=/usr/share/doc/mpfr-4.2.0
 make
 make html
+
 make check
 }
 ```
@@ -708,7 +713,6 @@ Testsuite summary for MPFR 4.2.0
 ```
 
 ### 8.20.2 Install
-Approximate time required: x SBU
 ```bash
 time {
 make install
@@ -721,8 +725,8 @@ rm -rf mpfr-*/
 
 ---
 ## 8.21 MPC install
+Approximate time required: 0.32 SBU
 ### 8.21.1 Compile and run tests
-Approximate time required: x SBU
 ```bash
 cd /sources/
 
@@ -735,6 +739,7 @@ cd mpc-*/
             --docdir=/usr/share/doc/mpc-1.3.1
 make
 make html
+
 make check
 }
 ```
@@ -754,7 +759,6 @@ Testsuite summary for mpc 1.3.1
 ```
 
 ### 8.21.2 Install
-Approximate time required: x SBU
 ```bash
 time {
 make install
@@ -767,8 +771,8 @@ rm -rf mpc-*/
 
 ---
 ## 8.22 Attr install
+Approximate time required: 0.12 SBU
 ### 8.22.1 Compile and run tests
-Approximate time required: x SBU
 ```bash
 cd /sources/
 
@@ -781,6 +785,7 @@ cd attr-*/
             --sysconfdir=/etc \
             --docdir=/usr/share/doc/attr-2.5.1
 make
+
 make check
 }
 ```
@@ -800,7 +805,6 @@ Testsuite summary for attr 2.5.1
 ```
 
 ### 8.22.2 Install
-Approximate time required: x SBU
 ```bash
 time {
 make install
@@ -812,10 +816,10 @@ rm -rf attr-*/
 
 ---
 ## 8.23 Acl install
-The book doesn't even test the package lol\
+The book doesn't even test the package lol
 > If desired, return to this package and run make check after the Coreutils package has been built.
 
-Approximate time required: x SBU
+Approximate time required: 0.11 SBU
 ```bash
 cd /sources/
 
@@ -837,8 +841,8 @@ rm -rf acl-*/
 
 ---
 ## 8.24 Libcap install
+Approximate time required: 0.04 SBU\
 Make sure no fails during `make test`\
-Approximate time required: x SBU
 ```bash
 cd /sources/
 
@@ -849,7 +853,9 @@ cd libcap-*/
 sed -i '/install -m.*STA/d' libcap/Makefile
 
 make prefix=/usr lib=lib
+
 make test
+
 make prefix=/usr lib=lib install
 }
 cd /sources/
@@ -859,8 +865,8 @@ rm -rf libcap-*/
 
 ---
 ## 8.25 Libxcrypt install
+Approximate time required: 0.33 SBU
 ### 8.25.1 Compile and run tests
-Approximate time required: x SBU
 ```bash
 cd /sources/
 
@@ -874,6 +880,7 @@ cd libxcrypt-*/
             --disable-static             \
             --disable-failure-tokens
 make
+
 make check
 }
 ```
@@ -893,7 +900,6 @@ Testsuite summary for xcrypt 4.4.36
 ```
 
 ### 8.25.2 Install
-Approximate time required: x SBU
 ```bash
 time {
 make install
@@ -908,7 +914,7 @@ rm -rf libxcrypt-*/
 >Book: "This package does not come with a test suite."\
 Me: :):):):):):):tada::tada::tada::tada:
 
-Approximate time required: x SBU
+Approximate time required: 0.3 SBU
 ```bash
 cd /sources/
 

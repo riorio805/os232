@@ -8,10 +8,3 @@ os stuff
 [More links](./LINKS) |
 [Notes](./NOTES) |
 [Tarball](https://os.vlsm.org/Log/riorio805.tar.xz.txt) |
-
-
-### Check TARBALL:
-
-```bash
-wget -c https://cbkadal.github.io/os232/SandBox/cbkadal.tar.xz
-```

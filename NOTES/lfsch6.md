@@ -54,7 +54,6 @@ time {
 tar xf m4-*.tar.xz
 cd m4-*/
 
-# Installation here
 ./configure --prefix=/usr\
             --host=$LFS_TGT\
             --build=$(build-aux/config.guess)

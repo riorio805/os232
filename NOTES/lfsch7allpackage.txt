@@ -2,7 +2,7 @@
 # IMPORTANT: Run this script in `chroot` environment
 # Just CTRL+A, CTRL+C, CTRL+V
 # Output time will be total time for all scripts
-# Approximate time required: 16.6 SBU
+# Approximate time required: x.x SBU
 cd /sources/
 
 time {

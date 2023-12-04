@@ -8,160 +8,27 @@ Why the fuck are there 83 subsections in this chapter???
 
 ## 8.0 Chapter 8 Setup
 
-## 8.0.S Entering chroot environment
+### 8.0.S Entering chroot environment
 #### Run as `root`
-Set `$LFS` variable
+Check mounted or not
 ```bash
-export LFS=/mnt/lfs
+findmnt | grep $LFS
 ```
-Check `$LFS` variable (make sure OK)
-```bash
-echo "===== ======="
-echo "Check $LFS..."
-if   [ -z $LFS  ] ; then 
-  echo ERROR: There is no LFS variable  === ERROR ===
-elif [ -d $LFS/ ] ; then
-  echo === === === === === === ===  LFS is $LFS/ === OK ===
-else
-  echo ERROR: There is no LFS directory === ERROR ===
-fi
+Output if LFS **IS MOUNTED**:
 ```
-Enter chroot environment
-```bash
-chroot "$LFS" /usr/bin/env -i   \
-    HOME=/root                  \
-    TERM="$TERM"                \
-    PS1='(lfs chroot) \u:\w\$ ' \
-    PATH=/usr/bin:/usr/sbin     \
-    /bin/bash --login
+├─/mnt/lfs                                              /dev/sdb2   ext4        rw,relatime
+│ ├─/mnt/lfs/dev                                        udev        devtmpfs    rw,nosuid,relatime,size=1981744k,nr_inodes=495436,mode=755,inode64
+│ │ ├─/mnt/lfs/dev/pts                                  devpts      devpts      rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000
+│ │ └─/mnt/lfs/dev/shm                                  tmpfs       tmpfs       rw,nosuid,nodev,relatime,inode64
+│ ├─/mnt/lfs/proc                                       proc        proc        rw,relatime
+│ ├─/mnt/lfs/sys                                        sysfs       sysfs       rw,relatime
+│ └─/mnt/lfs/run                                        tmpfs       tmpfs       rw,relatime,inode64
 ```
-
-## 8.0.E Exiting chroot environment
-When you want to exit just do this
-```bash
-exit
+Output if LFS **IS NOT MOUNTED**:
 ```
-
-## 8.0.X Pre-flight Checks
-Make sure you are in
-`(lfs chroot) root:/# |`
-Create `version-check.sh` (from LFS book section 2.2)
-```bash
-cd /
-cat > version-check.sh << "EOF"
-#!/bin/bash
-# A script to list version numbers of critical development tools
-
-# If you have tools installed in other directories, adjust PATH here AND
-# in ~lfs/.bashrc (section 4.4) as well.
-
-LC_ALL=C 
-PATH=/usr/bin:/bin
-
-bail() { echo "FATAL: $1"; exit 1; }
-grep --version > /dev/null 2> /dev/null || bail "grep does not work"
-sed '' /dev/null || bail "sed does not work"
-sort   /dev/null || bail "sort does not work"
-
-ver_check()
-{
-   if ! type -p $2 &>/dev/null
-   then 
-     echo "ERROR: Cannot find $2 ($1)"; return 1; 
-   fi
-   v=$($2 --version 2>&1 | grep -E -o '[0-9]+\.[0-9\.]+[a-z]*' | head -n1)
-   if printf '%s\n' $3 $v | sort --version-sort --check &>/dev/null
-   then 
-     printf "OK:    %-9s %-6s >= $3\n" "$1" "$v"; return 0;
-   else 
-     printf "ERROR: %-9s is TOO OLD ($3 or later required)\n" "$1"; 
-     return 1; 
-   fi
-}
-
-ver_kernel()
-{
-   kver=$(uname -r | grep -E -o '^[0-9\.]+')
-   if printf '%s\n' $1 $kver | sort --version-sort --check &>/dev/null
-   then 
-     printf "OK:    Linux Kernel $kver >= $1\n"; return 0;
-   else 
-     printf "ERROR: Linux Kernel ($kver) is TOO OLD ($1 or later required)\n" "$kver"; 
-     return 1; 
-   fi
-}
-
-# Coreutils first because-sort needs Coreutils >= 7.0
-ver_check Coreutils      sort     7.0 || bail "--version-sort unsupported"
-ver_check Bash           bash     3.2
-ver_check Binutils       ld       2.13.1
-ver_check Bison          bison    2.7
-ver_check Diffutils      diff     2.8.1
-ver_check Findutils      find     4.2.31
-ver_check Gawk           gawk     4.0.1
-ver_check GCC            gcc      5.1
-ver_check "GCC (C++)"    g++      5.1
-ver_check Grep           grep     2.5.1a
-ver_check Gzip           gzip     1.3.12
-ver_check M4             m4       1.4.10
-ver_check Make           make     4.0
-ver_check Patch          patch    2.5.4
-ver_check Perl           perl     5.8.8
-ver_check Python         python3  3.4
-ver_check Sed            sed      4.1.5
-ver_check Tar            tar      1.22
-ver_check Texinfo        texi2any 5.0
-ver_check Xz             xz       5.0.0
-ver_kernel 4.14
-
-if mount | grep -q 'devpts on /dev/pts' && [ -e /dev/ptmx ]
-then echo "OK:    Linux Kernel supports UNIX 98 PTY";
-else echo "ERROR: Linux Kernel does NOT support UNIX 98 PTY"; fi
-
-alias_check() {
-   if $1 --version 2>&1 | grep -qi $2
-   then printf "OK:    %-4s is $2\n" "$1";
-   else printf "ERROR: %-4s is NOT $2\n" "$1"; fi
-}
-echo "Aliases:"
-alias_check awk GNU
-alias_check yacc Bison
-alias_check sh Bash
-
-echo "Compiler check:"
-if printf "int main(){}" | g++ -x c++ -
-then echo "OK:    g++ works";
-else echo "ERROR: g++ does NOT work"; fi
-rm -f a.out
-EOF
+├─/mnt/lfs                                              /dev/sdb2   ext4        rw,relatime
 ```
-Run `version-check.sh` to see version requirements(Make sure all is OK)
-```bash
-bash version-check.sh
-```
-
-## 8.0.B Backup
-Leave the chroot environment to get to root\
-NOTE: you may need to exit multiple times to get to actual root
-```bash
-exit
-```
-Unmount the virtual file system
-```bash
-mountpoint -q $LFS/dev/shm && umount $LFS/dev/shm
-umount $LFS/dev/pts
-umount $LFS/{sys,proc,run,dev}
-```
-Create the backup\
-Approximate time required: 6.1 SBU
-```bash
-cd $LFS
-time {
-    tar -cJpvf $HOME/lfs-temp-tools-12.0.tar.xz .;
-}
-cd
-```
-Mount virtual file systems
+Mount virtual filesystem if not mounted
 ```bash
 mkdir -pv $LFS/{dev,proc,sys,run}
 
@@ -176,10 +43,50 @@ if [ -h $LFS/dev/shm ]; then
 else
   mount -t tmpfs -o nosuid,nodev tmpfs $LFS/dev/shm
 fi
+```
+Enter chroot environment
+```bash
+chroot "$LFS" /usr/bin/env -i   \
+    HOME=/root                  \
+    TERM="$TERM"                \
+    PS1='(lfs chroot) \u:\w\$ ' \
+    PATH=/usr/bin:/usr/sbin     \
+    /bin/bash --login
+```
+
+
+### 8.0.E Exiting chroot environment
+When you want to exit just do this
+```bash
+exit
+```
+
+### 8.0.X Pre-flight Checks
+Make sure you are in
+`(lfs chroot) root:/# |`\
+Create `version-check.sh` (See [Section 7.12T](./lfsch7.md#712t-test-installations) on creating `version-check.sh`)
+
+Run `version-check.sh` to see version requirements(Make sure all is OK)
+```bash
+bash version-check.sh
+```
+
+Check your “NPROC”, and “MAKEFLAGS” environment variables
+```bash
+echo "NPROC=$(nproc) MAKEFLAGS=$MAKEFLAGS"
+```
+Set `MAKEFLAGS` variable
+```bash
+export MAKEFLAGS='-j4'
+```
+
+### 8.0.B Backup
+See [Section 7.13.2](./lfsch7.md#7132-backup) on backing up the LFS system.
+
 
 ---
 ## 8.3 Man-pages install
-Approximate time required: x SBU
+Approximate time required: 0.15 SBU
 ```bash
 cd /sources/
 
@@ -198,7 +105,7 @@ rm -rf man-pages-*/
 
 ---
 ## 8.4 Iana-Etc install
-Approximate time required: x SBU
+Approximate time required: basically no time
 ```bash
 cd /sources/
 
@@ -216,9 +123,8 @@ rm -rf iana-etc-*/
 
 ---
 ## 8.5 Glibc
+Approximate time required: 52.75 SBU
 ### 8.5.1 Compile and check
-Compile and run tests\
-Approximate time required: x SBU
 ```bash
 cd /sources/
 
@@ -241,7 +147,8 @@ echo "rootsbindir=/usr/sbin" > configparms
              --with-headers=/usr/include              \
              libc_cv_slibdir=/usr/lib
 make
-make check;
+
+make check
 }
 ```
 Check last output for test results.
@@ -251,8 +158,7 @@ Common failures:\
 -> stdlib/tst-arc4random-thread
 
 ### 8.5.2 Install and configure
-Install and configure locales\
-Approximate time required: x SBU
+Install and configure locales and timezone\
 ```bash
 time { 
 touch /etc/ld.so.conf
@@ -302,12 +208,7 @@ localedef -i zh_TW -f UTF-8 zh_TW.UTF-8
 # INDONESIA NUMBA WAAAAAAAAAN
 localedef -i id_ID -f ISO-8859-1 id_ID
 localedef -i id_ID -f UTF-8 id_ID.UTF-8
-}
-```
 
-Configure timezone\
-Approximate time required: x SBU
-```bash
 cat > /etc/nsswitch.conf << "EOF"
 # Begin /etc/nsswitch.conf
 
@@ -357,7 +258,7 @@ include /etc/ld.so.conf.d/*.conf
 
 EOF
 mkdir -pv /etc/ld.so.conf.d
-
+}
 
 cd /sources/
 rm -rf glibc-*/
