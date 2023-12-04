@@ -456,7 +456,7 @@ time tar -cJpvf $HOME/lfs-temp-tools-12.0.tar.xz .
 Use multi-thread compression
 ```bash
 cd $LFS
-time tar -I 'xz -T0' -cpvf $HOME/lfs-temp-tools-12.0.tar.xz .
+time tar -I 'xz -9 -T0' -cpvf $HOME/lfs-temp-tools-12.0.tar.xz .
 ```
 
 
