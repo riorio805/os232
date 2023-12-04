@@ -108,3 +108,12 @@ ZCZC W08 15 L41 Total time writing TXT/mylog.txt
 
 # Week 9
 ZCZC W09 200 L00 this week
+
+
+# Week 10
+ZCZC W10 323 L13 lfs chapter 8
+ZCZC W10 15 L05 Weekly quiz
+ZCZC W10 15 L41 Total time writing TXT/mylog.txt
+
+
+
