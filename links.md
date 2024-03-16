@@ -4,18 +4,15 @@ permalink: LINKS/
 
 # links
 OS related:<br>
-1. [My personal notes](https://riorio805.github.io/os232/NOTES)
-
+1. [My personal notes](https://riorio805.github.io/os232/NOTES)\
 I do work here.
 
 
-2. [Vi cheatsheet](https://www.atmos.albany.edu/daes/atmclasses/atm350/vi_cheat_sheet.pdf)
-
+2. [Vi cheatsheet](https://www.atmos.albany.edu/daes/atmclasses/atm350/vi_cheat_sheet.pdf)\
 Vi commands. :thumbs:
 
 
-3. [Bash cheatsheet](https://devhints.io/bash#conditionals)
-
+3. [Bash cheatsheet](https://devhints.io/bash#conditionals)\
 Contains most of the syntax in bash, which is good enough.
 
 
@@ -44,9 +41,13 @@ git pull origin master
 Note that `git sparse-checkout` is currently experimental, and may behave unexpectedly with other git commands.
 
 
+5. [How to push to multiple remotes at once](https://stackoverflow.com/a/31424227)
+
+Awesome if you have a gitlab acccount
+
 ---
 Etc:
 
-5. [List of emojis supported by Github's markdown](https://gist.github.com/rxaviers/7360908)
+6. [List of emojis supported by Github's markdown](https://gist.github.com/rxaviers/7360908)
 
 See title. :palm_tree:
